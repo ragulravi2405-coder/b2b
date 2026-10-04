@@ -64,7 +64,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
             <CheckCircle2 className="w-12 h-12 text-[#00C496] mx-auto mb-3" />
             <h4 className="text-lg font-bold text-slate-900">Report Received</h4>
             <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
-              Thank you for keeping B2B safe. Our moderation team will investigate {profile.username}&apos;s profile promptly.
+              Thank you for keeping Frndma safe. Our moderation team will investigate {profile.username}&apos;s profile promptly.
             </p>
           </div>
         ) : (

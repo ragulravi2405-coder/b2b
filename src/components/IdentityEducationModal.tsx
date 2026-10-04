@@ -30,7 +30,7 @@ export const IdentityEducationModal: React.FC<IdentityEducationModalProps> = ({ 
           </div>
           <div>
             <h3 className="text-xl font-bold text-slate-900">Understanding Identities</h3>
-            <p className="text-xs sm:text-sm text-slate-500">Respectful, inclusive terms on B2B</p>
+            <p className="text-xs sm:text-sm text-slate-500">Respectful, inclusive terms on Frndma</p>
           </div>
         </div>
 
@@ -65,7 +65,7 @@ export const IdentityEducationModal: React.FC<IdentityEducationModalProps> = ({ 
           <div className="p-4 rounded-2xl bg-teal-50/60 border border-teal-100 flex items-start gap-3">
             <ShieldCheck className="w-5 h-5 text-[#00C496] flex-shrink-0 mt-0.5" />
             <div className="text-xs sm:text-sm text-teal-900 leading-relaxed">
-              <span className="font-semibold">Safe & Affirming Space:</span> B2B welcomes every adult Indian man to express their authentic self without fear of judgment, prejudice, or outing.
+              <span className="font-semibold">Safe &amp; Affirming Space:</span> Frndma welcomes every adult Indian individual to express their authentic self without fear of judgment, prejudice, or outing.
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ export const MessagesInboxView: React.FC<MessagesInboxViewProps> = ({
         <div>
           <h2 className="text-2xl font-black text-slate-900">Conversations</h2>
           <p className="text-xs text-slate-500 mt-1">
-            Private, secure messages with other gay and bisexual men on B2B
+            Private, secure messages with other verified members on Frndma
           </p>
         </div>
         <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">

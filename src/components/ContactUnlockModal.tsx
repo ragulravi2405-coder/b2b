@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { X, Lock, CheckCircle2, ShieldCheck, MessageCircle, ExternalLink, CreditCard, AlertCircle, Sparkles } from 'lucide-react';
+import { X, Lock, CheckCircle2, ShieldCheck, MessageCircle, ExternalLink, CreditCard, AlertCircle, Sparkles, RefreshCw, Mail } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { UserProfile, AuthUser } from '@/types';
 import { loadRazorpayScript } from '@/lib/razorpay';
+import Link from 'next/link';
 
 interface ContactUnlockModalProps {
   isOpen: boolean;
@@ -28,6 +29,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [unlocked, setUnlocked] = useState(isAlreadyUnlocked);
   const [whatsappUrl, setWhatsappUrl] = useState<string | null>(unlockedWhatsappUrl || null);
+  const [paymentReference, setPaymentReference] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Sync state whenever target profile or lock status changes
@@ -43,7 +45,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
         .then(data => {
           if (data.success && data.unlocked) {
             setUnlocked(true);
-            const finalUrl = data.whatsappUrl || `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on B2B!`)}`;
+            const finalUrl = data.whatsappUrl || `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on Frndma!`)}`;
             setWhatsappUrl(finalUrl);
             onUnlockedSuccess(profile.id, finalUrl);
           }
@@ -98,11 +100,9 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
 
       const keyId = orderData.order?.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
 
-      // If Razorpay Key is not configured yet, notify user to configure .env.local
       if (!keyId || keyId === 'rzp_test_B2BDemoKey123' || !keyId.startsWith('rzp_')) {
-        // Fallback open payment link, but strictly without fake bypass
         window.open('https://razorpay.me/@ravirahul601', '_blank');
-        throw new Error('Razorpay API Key ID is required in .env.local to enable automated popup checkout. Please configure NEXT_PUBLIC_RAZORPAY_KEY_ID in .env.local.');
+        throw new Error('Razorpay API Key ID is required in .env.local to enable automated popup checkout.');
       }
 
       // 3. Open official Razorpay Popup Checkout
@@ -110,7 +110,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
         key: keyId,
         amount: (orderData.order?.amount || unlockAmount) * 100, // paise
         currency: 'INR',
-        name: 'B2B Connect',
+        name: 'Frndma',
         description: `Unlock ${profile.username}'s Contact`,
         order_id: orderData.order?.orderId?.startsWith('order_') ? orderData.order.orderId : undefined,
         handler: async function (response: any) {
@@ -134,6 +134,8 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
               throw new Error(verifyData.error || 'Payment verification failed on server.');
             }
 
+            setPaymentReference(response.razorpay_payment_id);
+
             // Unlocked with celebration
             confetti({
               particleCount: 120,
@@ -142,13 +144,13 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
               colors: ['#6C3BFF', '#FF6B9D', '#00C496', '#FFD700']
             });
 
-            const finalUrl = verifyData.data?.whatsappUrl || `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on B2B!`)}`;
+            const finalUrl = verifyData.data?.whatsappUrl || `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on Frndma!`)}`;
             setUnlocked(true);
             setWhatsappUrl(finalUrl);
             onUnlockedSuccess(profile.id, finalUrl);
           } catch (verifyErr: any) {
             console.error('Verification error:', verifyErr);
-            setError(verifyErr.message || 'Verification failed. Please contact support.');
+            setError(verifyErr.message || 'Verification failed. Please contact support at frndma.com@gmail.com.');
           } finally {
             setLoading(false);
           }
@@ -170,7 +172,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
       const razorpayInstance = new (window as any).Razorpay(options);
       razorpayInstance.on('payment.failed', function (resp: any) {
         setLoading(false);
-        setError(`Payment failed: ${resp.error?.description || 'Transaction was declined.'}`);
+        setError(`Payment failed: ${resp.error?.description || 'Transaction was declined by bank/gateway.'} Please try again or contact support at frndma.com@gmail.com.`);
       });
       razorpayInstance.open();
     } catch (err: any) {
@@ -182,7 +184,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-md bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
+      <div className="relative w-full max-w-md bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100 max-h-[92vh] overflow-y-auto">
         {/* Top Pride Accent Bar */}
         <div className="h-2.5 pride-accent-bar" />
 
@@ -196,39 +198,51 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
 
         <div className="p-6 sm:p-7">
           {unlocked && whatsappUrl ? (
-            /* Contact Unlocked View (Direct WhatsApp Access) */
-            <div className="text-center py-3">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 text-[#00C496] flex items-center justify-center mx-auto mb-4 animate-bounce">
+            /* Contact Unlocked View (Payment Success State) */
+            <div className="text-center py-2">
+              <div className="w-16 h-16 rounded-full bg-emerald-100 text-[#00C496] flex items-center justify-center mx-auto mb-3 animate-bounce">
                 <CheckCircle2 className="w-9 h-9" />
               </div>
               <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800">
-                Payment Verified • Contact Unlocked
+                Payment Success • Contact Unlocked
               </span>
               <h3 className="text-2xl font-black text-slate-900 mt-2">
                 Connect with {profile.username}
               </h3>
-              <p className="text-xs text-slate-500 mt-1.5 max-w-xs mx-auto">
-                ₹{unlockAmount} payment verified via Razorpay. You now have direct access to chat with {profile.username} on WhatsApp!
+              <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                ₹{unlockAmount} INR payment captured successfully. You now have direct access to chat with {profile.username} on WhatsApp.
               </p>
 
-              {/* Status Box */}
-              <div className="mt-5 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
-                <div className="flex items-center gap-3 text-left">
-                  <div className="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center">
-                    <MessageCircle className="w-5 h-5 fill-white" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500 font-medium">WhatsApp Contact</p>
-                    <p className="text-sm font-bold text-slate-800">Verified &amp; Active</p>
-                  </div>
+              {/* Transaction Reference Box */}
+              <div className="mt-4 p-3 rounded-2xl bg-slate-50 border border-slate-200/80 text-left text-xs space-y-1.5">
+                <div className="flex justify-between items-center text-slate-500">
+                  <span>Product / Service:</span>
+                  <span className="font-semibold text-slate-800">Frndma Contact Unlock</span>
                 </div>
-                <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-                  Unlocked 🟢
-                </span>
+                <div className="flex justify-between items-center text-slate-500">
+                  <span>Companion:</span>
+                  <span className="font-semibold text-slate-800">{profile.username}</span>
+                </div>
+                <div className="flex justify-between items-center text-slate-500">
+                  <span>Amount Paid:</span>
+                  <span className="font-bold text-slate-900">₹{unlockAmount} INR</span>
+                </div>
+                {paymentReference && (
+                  <div className="flex justify-between items-center text-slate-500">
+                    <span>Payment Ref:</span>
+                    <span className="font-mono text-[11px] font-semibold text-purple-700">{paymentReference}</span>
+                  </div>
+                )}
+                <div className="flex justify-between items-center text-slate-500 pt-1 border-t border-slate-200/60 text-[11px]">
+                  <span>Support:</span>
+                  <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-medium hover:underline">
+                    frndma.com@gmail.com
+                  </a>
+                </div>
               </div>
 
               {/* Direct WhatsApp Open Button */}
-              <div className="mt-6 space-y-2.5">
+              <div className="mt-5 space-y-2.5">
                 <a
                   href={whatsappUrl}
                   target="_blank"
@@ -249,64 +263,72 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
               </div>
             </div>
           ) : (
-            /* Locked View */
+            /* Locked Checkout View */
             <div>
               {/* Header */}
-              <div className="text-center mb-5">
-                <div className="w-12 h-12 rounded-2xl bg-purple-50 text-[#6C3BFF] flex items-center justify-center mx-auto mb-2.5">
+              <div className="text-center mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-purple-50 text-[#6C3BFF] flex items-center justify-center mx-auto mb-2">
                   <Lock className="w-6 h-6" />
                 </div>
                 <span className="px-3 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-purple-100 text-[#6C3BFF]">
-                  Individual Contact Unlock
+                  Secure Checkout
                 </span>
-                <h3 className="text-xl font-black text-slate-900 mt-2">
+                <h3 className="text-xl font-black text-slate-900 mt-1.5">
                   Unlock {profile.username}&apos;s Contact
                 </h3>
-                <p className="text-xs text-slate-500 mt-1">
-                  Connect with <span className="font-semibold text-slate-800">{profile.username}, {profile.age}</span> directly on WhatsApp
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Service: Direct WhatsApp Access with <span className="font-semibold text-slate-800">{profile.username}</span>
                 </p>
               </div>
 
-              {/* Pricing Box */}
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-50 via-white to-pink-50 border border-purple-200/80 mb-4 relative overflow-hidden">
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <span className="text-[10px] font-bold tracking-wider uppercase text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full">
-                      Separate Payment per Contact
-                    </span>
-                    <div className="flex items-baseline gap-1 mt-1">
-                      <span className="text-3xl font-black text-slate-900">₹{unlockAmount}</span>
-                      <span className="text-xs text-slate-500 font-medium">INR / this profile</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-xs text-slate-400 line-through">₹{unlockAmount === 1 ? 299 : 599}</span>
-                    <span className="block text-[11px] font-bold text-emerald-600">
-                      {unlockAmount === 1 ? 'Special ₹1 Offer 🔥' : 'Save 50%'}
-                    </span>
-                  </div>
+              {/* Itemized Order Summary Box */}
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/90 mb-4 space-y-2.5 text-xs text-slate-700">
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-600">Product / Service:</span>
+                  <span className="font-semibold text-slate-900">Frndma Contact Unlock</span>
                 </div>
-
-                <div className="border-t border-purple-100 pt-3 space-y-2 text-xs text-slate-700">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#00C496] flex-shrink-0" />
-                    <span>Unlocks WhatsApp contact for <strong>{profile.username} only</strong></span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#00C496] flex-shrink-0" />
-                    <span>Instant automatic unlock via Razorpay Checkout</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#00C496] flex-shrink-0" />
-                    <span>Strictly paid — contact hidden until ₹{unlockAmount} is paid</span>
-                  </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-600">Selected Profile:</span>
+                  <span className="font-semibold text-slate-900">{profile.username} ({profile.orientation})</span>
                 </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-600">Currency:</span>
+                  <span className="font-semibold text-slate-900">INR (Indian Rupee)</span>
+                </div>
+                <div className="flex justify-between items-center pt-2 border-t border-slate-200 text-sm">
+                  <span className="font-bold text-slate-900">Final Payable Amount:</span>
+                  <span className="font-black text-lg text-[#6C3BFF]">₹{unlockAmount} INR</span>
+                </div>
+                <p className="text-[10px] text-slate-400">
+                  Includes all applicable taxes. One-time fee for lifetime retained access to this contact.
+                </p>
               </div>
 
+              {/* Error / Failure Banner with Retry Option */}
               {error && (
-                <div className="mb-4 p-3 rounded-xl bg-red-50 text-red-600 text-xs font-medium flex items-center gap-2 border border-red-200 animate-in fade-in">
-                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                  <span>{error}</span>
+                <div className="mb-4 p-3.5 rounded-xl bg-red-50 text-red-700 text-xs space-y-2 border border-red-200 animate-in fade-in">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-600" />
+                    <div>
+                      <p className="font-bold">Transaction Alert</p>
+                      <p className="text-[11px] mt-0.5">{error}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between pt-1 border-t border-red-200/60 text-[11px]">
+                    <button
+                      type="button"
+                      onClick={handleRazorpayCheckout}
+                      className="font-bold text-red-800 underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <RefreshCw className="w-3 h-3" /> Retry Payment
+                    </button>
+                    <a
+                      href="mailto:frndma.com@gmail.com"
+                      className="text-[#6C3BFF] font-semibold underline"
+                    >
+                      Contact Support
+                    </a>
+                  </div>
                 </div>
               )}
 
@@ -319,13 +341,13 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
                   <div>
                     <h4 className="text-xs font-bold text-slate-900">Sign Up / Log In Required</h4>
                     <p className="text-[11px] text-slate-600 mt-0.5">
-                      Create an account or log in to pay ₹{unlockAmount} and unlock {profile.username}&apos;s verified WhatsApp contact.
+                      Create an account or log in to pay ₹{unlockAmount} INR and unlock {profile.username}&apos;s verified WhatsApp contact.
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={onOpenAuth}
-                    className="w-full py-3 rounded-xl bg-[#6C3BFF] hover:bg-[#5828E8] text-white font-bold text-xs shadow-md shadow-purple-200 transition-all flex items-center justify-center gap-1.5"
+                    className="w-full py-3 rounded-xl bg-[#6C3BFF] hover:bg-[#5828E8] text-white font-bold text-xs shadow-md shadow-purple-200 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span>Sign Up / Log In to Unlock</span>
                   </button>
@@ -347,21 +369,40 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
                     ) : (
                       <>
                         <CreditCard className="w-4 h-4" />
-                        <span>Pay ₹{unlockAmount} via Razorpay to Unlock</span>
-                        <Sparkles className="w-4 h-4" />
+                        <span>Proceed to Pay ₹{unlockAmount} INR via Razorpay</span>
                       </>
                     )}
                   </button>
 
-                  <p className="text-[11px] text-slate-400 text-center">
-                    🔒 Opens official Razorpay gateway. Unlocks instantly upon payment.
+                  <p className="text-[10px] text-slate-400 text-center leading-relaxed">
+                    🔒 Payments are securely processed through Razorpay. Frndma does not store your card number, CVV, OTP, or UPI PIN.
                   </p>
                 </div>
               )}
 
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center gap-1.5 text-[11px] text-slate-500">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#00C496]" />
-                <span>Razorpay Secured Gateway</span>
+              {/* Compliance & Policy Links (Essential for Razorpay website verification) */}
+              <div className="mt-4 pt-3 border-t border-slate-100 space-y-2">
+                <div className="flex items-center justify-center gap-3 text-[11px] text-slate-500 font-medium">
+                  <Link href="/terms" target="_blank" className="hover:text-[#6C3BFF] underline">
+                    Terms &amp; Conditions
+                  </Link>
+                  <span>•</span>
+                  <Link href="/privacy" target="_blank" className="hover:text-[#6C3BFF] underline">
+                    Privacy Policy
+                  </Link>
+                  <span>•</span>
+                  <Link href="/refund" target="_blank" className="hover:text-[#6C3BFF] underline">
+                    Refund Policy
+                  </Link>
+                </div>
+
+                <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
+                  <Mail className="w-3 h-3 text-slate-400" />
+                  <span>Support: </span>
+                  <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold hover:underline">
+                    frndma.com@gmail.com
+                  </a>
+                </div>
               </div>
             </div>
           )}

@@ -224,7 +224,7 @@ export const ProfileDetailsModal: React.FC<ProfileDetailsModalProps> = ({
                       <span className="text-xs font-extrabold text-[#6C3BFF]">₹{profile.unlockPrice ?? 299}</span>
                     </div>
                     <p className="text-[11px] text-slate-500 mb-3">
-                      Unlock {profile.username}&apos;s verified WhatsApp details to continue connecting outside B2B.
+                      Unlock {profile.username}&apos;s verified WhatsApp details to continue connecting outside Frndma.
                     </p>
                     <button
                       onClick={() => onOpenUnlockPayment(profile)}
