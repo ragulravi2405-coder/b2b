@@ -39,10 +39,10 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onE
         throw new Error('Could not load Razorpay SDK. Please check your internet connection.');
       }
 
-      const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
-      if (!keyId || keyId === 'rzp_test_B2BDemoKey123' || !keyId.startsWith('rzp_')) {
+      const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_Tk6HPEGS2HVr0h';
+      if (!keyId || !keyId.startsWith('rzp_')) {
         window.open('https://razorpay.me/@ravirahul601', '_blank');
-        throw new Error('Razorpay API Key ID is required in .env.local to enable automated popup checkout.');
+        throw new Error('Razorpay API Key ID is required to enable automated popup checkout.');
       }
 
       const options: any = {

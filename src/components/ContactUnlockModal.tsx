@@ -98,11 +98,11 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
         return;
       }
 
-      const keyId = orderData.order?.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+      const keyId = orderData.order?.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_Tk6HPEGS2HVr0h';
 
-      if (!keyId || keyId === 'rzp_test_B2BDemoKey123' || !keyId.startsWith('rzp_')) {
+      if (!keyId || !keyId.startsWith('rzp_')) {
         window.open('https://razorpay.me/@ravirahul601', '_blank');
-        throw new Error('Razorpay API Key ID is required in .env.local to enable automated popup checkout.');
+        throw new Error('Razorpay API Key ID is required to enable automated popup checkout.');
       }
 
       // 3. Open official Razorpay Popup Checkout

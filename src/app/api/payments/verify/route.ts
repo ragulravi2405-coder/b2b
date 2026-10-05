@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    const razorpayKey = process.env.RAZORPAY_KEY_ID;
+    const razorpayKey = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
     const razorpaySecret = process.env.RAZORPAY_KEY_SECRET;
 
     // 4. If Razorpay secret and signature are present, verify HMAC SHA256 signature
