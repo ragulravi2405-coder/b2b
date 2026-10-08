@@ -1,6 +1,35 @@
 {
   "profiles": [
     {
+      "id": "male-car-1",
+      "username": "Speedy Boy",
+      "age": 22,
+      "orientation": "Male Model",
+      "distanceKm": 2,
+      "bio": "Cartoon car lover & cool boy 🏎️⚡ Fast drives, gaming, and fun conversations. Unlock my WhatsApp contact for just ₹1!",
+      "interests": [
+        "Cars",
+        "Racing",
+        "Gaming",
+        "Music",
+        "Road Trips"
+      ],
+      "lookingFor": [
+        "Friendship",
+        "Conversation",
+        "Dating"
+      ],
+      "avatar": "/profiles/cartoon-car.jpg",
+      "additionalPhotos": [
+        "/profiles/cartoon-car.jpg"
+      ],
+      "isVerified": true,
+      "isOnline": true,
+      "lastActive": "Active now",
+      "whatsappNumber": "919087923641",
+      "unlockPrice": 1
+    },
+    {
       "id": "male-1",
       "username": "Arjun",
       "age": 24,
@@ -555,6 +584,17 @@
       "amount": 299,
       "status": "created",
       "createdAt": "2026-10-03T14:43:14.941Z"
+    },
+    {
+      "id": "tx_1791441178161",
+      "userId": "current-user-1",
+      "profileId": "male-car-1",
+      "profileName": "Speedy Boy",
+      "razorpayOrderId": "order_frndma_1791441178161_834",
+      "razorpayPaymentId": "",
+      "amount": 1,
+      "status": "created",
+      "createdAt": "2026-10-08T06:32:58.161Z"
     }
   ],
   "contactUnlocks": [

@@ -2,6 +2,25 @@ import { UserProfile } from '@/types';
 
 export const INITIAL_DEMO_PROFILES: UserProfile[] = [
   {
+    id: 'male-car-1',
+    username: 'Speedy Boy',
+    age: 22,
+    orientation: 'Male Model',
+    distanceKm: 2,
+    bio: 'Cartoon car lover & cool boy 🏎️⚡ Fast drives, gaming, and fun conversations. Unlock my WhatsApp contact for just ₹1!',
+    interests: ['Cars', 'Racing', 'Gaming', 'Music', 'Road Trips'],
+    lookingFor: ['Friendship', 'Conversation', 'Dating'],
+    avatar: '/profiles/cartoon-car.jpg',
+    additionalPhotos: [
+      '/profiles/cartoon-car.jpg'
+    ],
+    isVerified: true,
+    isOnline: true,
+    lastActive: 'Active now',
+    whatsappNumber: '919087923641',
+    unlockPrice: 1
+  },
+  {
     id: 'male-1',
     username: 'Arjun',
     age: 24,
