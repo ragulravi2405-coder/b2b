@@ -49,7 +49,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
   const [hasOpenedRazorpay, setHasOpenedRazorpay] = useState(false);
   const [manualPaymentId, setManualPaymentId] = useState('');
 
-  const unlockAmount = 499; // Exactly ₹499
+  const unlockAmount = profile?.unlockPrice ?? 499;
   const razorpayMeUrl = 'https://razorpay.me/@ravirahul601';
 
   // Check backend source-of-truth when modal opens
@@ -133,7 +133,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
       const data = await res.json();
 
       if (!res.ok || !data.success || !data.unlocked) {
-        throw new Error(data.error || 'Payment not found on Razorpay live account. Please complete payment of ₹499 first.');
+        throw new Error(data.error || `Payment not found on Razorpay live account. Please complete payment of ₹${unlockAmount} first.`);
       }
 
       // Live captured payment confirmed!
@@ -293,7 +293,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
                   <span className="font-black text-xl text-[#6C3BFF]">₹{unlockAmount} INR</span>
                 </div>
                 <p className="text-[10px] text-slate-400">
-                  Pay ₹499 via Razorpay live link. Contact unlocks automatically once verified.
+                  Pay ₹{unlockAmount} via Razorpay live link. Contact unlocks automatically once verified.
                 </p>
               </div>
 

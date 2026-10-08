@@ -65,6 +65,9 @@ export async function POST(req: NextRequest) {
     const cleanOrderId = (razorpayOrderId || '').trim();
     const cleanSignature = (razorpaySignature || '').trim();
 
+    const expectedPaise = rawProfile.unlockPrice ? Math.round(rawProfile.unlockPrice * 100) : 49900;
+    const expectedRupees = expectedPaise / 100;
+
     // =========================================================================
     // 1. STANDARD RAZORPAY SDK FLOW (If signature is provided)
     // =========================================================================
@@ -104,11 +107,11 @@ export async function POST(req: NextRequest) {
         }, { status: 400 });
       }
 
-      if (Number(pData.amount) !== 49900) {
+      if (Number(pData.amount) !== expectedPaise) {
         return NextResponse.json({
           success: false,
           unlocked: false,
-          error: `Payment amount mismatch: Expected ₹499 INR (49900 paise), received ${pData.amount}.`
+          error: `Payment amount mismatch: Expected ₹${expectedRupees} INR (${expectedPaise} paise), received ₹${pData.amount / 100} (${pData.amount} paise).`
         }, { status: 400 });
       }
 
@@ -132,7 +135,7 @@ export async function POST(req: NextRequest) {
         unlocked: true,
         locked: false,
         paymentId: cleanPaymentId,
-        message: 'Payment of ₹499 INR verified successfully. Contact unlocked!',
+        message: `Payment of ₹${expectedRupees} INR verified successfully. Contact unlocked!`,
         contact: {
           username: rawProfile.username,
           whatsappNumber: rawProfile.whatsappNumber || '919087923641',
@@ -169,11 +172,11 @@ export async function POST(req: NextRequest) {
           }, { status: 400 });
         }
 
-        if (Number(pData.amount) !== 49900) {
+        if (Number(pData.amount) !== expectedPaise) {
           return NextResponse.json({
             success: false,
             unlocked: false,
-            error: `Payment amount is ₹${pData.amount / 100} INR. Contact requires a payment of exactly ₹499 INR.`
+            error: `Payment amount is ₹${pData.amount / 100} INR. Contact requires a payment of exactly ₹${expectedRupees} INR.`
           }, { status: 400 });
         }
 
@@ -205,7 +208,7 @@ export async function POST(req: NextRequest) {
           unlocked: true,
           locked: false,
           paymentId: cleanPaymentId,
-          message: 'Razorpay.me payment of ₹499 INR verified successfully. Contact unlocked!',
+          message: `Razorpay.me payment of ₹${expectedRupees} INR verified successfully. Contact unlocked!`,
           contact: {
             username: rawProfile.username,
             whatsappNumber: rawProfile.whatsappNumber || '919087923641',
@@ -238,11 +241,11 @@ export async function POST(req: NextRequest) {
       const listData = await listRes.json();
       const items: any[] = listData.items || [];
 
-      // Find any captured payment for ₹499 (49900 paise) that has not yet been used
+      // Find any captured payment for expected amount that has not yet been used
       const matchedPayment = items.find(
         (item) =>
           item.status === 'captured' &&
-          Number(item.amount) === 49900 &&
+          Number(item.amount) === expectedPaise &&
           item.currency === 'INR' &&
           !db.isPaymentIdUsed(item.id, userId, profileId)
       );
@@ -251,7 +254,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({
           success: false,
           unlocked: false,
-          error: 'No live captured payment of ₹499 found on Razorpay yet. Please complete the ₹499 payment on razorpay.me/@ravirahul601, then click "Verify Payment & Unlock Contact".'
+          error: `No live captured payment of ₹${expectedRupees} found on Razorpay yet. Please complete the ₹${expectedRupees} payment on razorpay.me/@ravirahul601, then click "Verify Live Payment & Unlock Contact".`
         }, { status: 400 });
       }
 
@@ -268,7 +271,7 @@ export async function POST(req: NextRequest) {
         unlocked: true,
         locked: false,
         paymentId: matchedPayment.id,
-        message: 'Live Razorpay payment of ₹499 detected and verified! Contact unlocked successfully.',
+        message: `Live Razorpay payment of ₹${expectedRupees} detected and verified! Contact unlocked successfully.`,
         contact: {
           username: rawProfile.username,
           whatsappNumber: rawProfile.whatsappNumber || '919087923641',

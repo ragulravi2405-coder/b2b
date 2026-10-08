@@ -11,12 +11,15 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ prof
 
     const userId = session?.userId || requestedUserId;
 
+    const profile = db.getRawProfileById(profileId);
+    const unlockPrice = profile?.unlockPrice ?? 499;
+
     if (!userId || userId === 'guest') {
       return NextResponse.json({
         success: true,
         locked: true,
         unlocked: false,
-        price: 499,
+        price: unlockPrice,
         error: 'Authentication required to view contact status.'
       });
     }
@@ -30,19 +33,18 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ prof
         success: true,
         locked: true,
         unlocked: false,
-        price: 499
+        price: unlockPrice
       });
     }
 
     // Only after genuine verified payment, return protected contact information
     const contactDetails = db.getUnlockedContactDetails(userId, profileId);
-    const profile = db.getRawProfileById(profileId);
 
     return NextResponse.json({
       success: true,
       locked: false,
       unlocked: true,
-      price: 499,
+      price: unlockPrice,
       name: profile?.username,
       whatsappNumber: contactDetails.whatsappNumber,
       whatsappUrl: contactDetails.whatsappUrl

@@ -89,6 +89,7 @@ async function initMongoSync() {
       await ProfileModel.insertMany(globalState.profiles.map(p => ({ ...p })));
       console.log('Seeded initial profiles into MongoDB');
     } else if (count > 0) {
+      await ProfileModel.updateOne({ id: 'male-south-1' }, { $set: { unlockPrice: 499 } }).catch(() => {});
       const dbProfiles = await ProfileModel.find({}).lean();
       if (globalState && dbProfiles.length > 0) {
         globalState.profiles = dbProfiles.map((p: any) => ({
@@ -358,6 +359,7 @@ export const db = {
     if (!profile) throw new Error('Profile not found');
 
     const finalOrderId = orderId || `order_b2b_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    const unlockPaise = Math.round((profile.unlockPrice ?? 499) * 100);
     const tx: PaymentTransaction = {
       id: `tx_${Date.now()}`,
       userId,
@@ -365,7 +367,7 @@ export const db = {
       profileName: profile.username,
       razorpayOrderId: finalOrderId,
       razorpayPaymentId: '',
-      amount: 49900, // Exactly ₹499 in smallest unit (paise)
+      amount: unlockPaise,
       currency: 'INR',
       status: 'created',
       verified: false,
@@ -376,7 +378,7 @@ export const db = {
 
     return {
       orderId: finalOrderId,
-      amount: 49900,
+      amount: unlockPaise,
       currency: 'INR',
       keyId: (process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID && !process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID.startsWith('rzp_test_'))
         ? process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
@@ -447,6 +449,7 @@ export const db = {
     if (!profile) throw new Error('Profile not found');
 
     // Update or add payment record
+    const unlockPaise = Math.round((profile.unlockPrice ?? 499) * 100);
     let payment = state.payments.find(p => p.razorpayOrderId === orderId);
     if (!payment) {
       payment = {
@@ -456,7 +459,7 @@ export const db = {
         profileName: profile.username,
         razorpayOrderId: orderId,
         razorpayPaymentId: paymentId,
-        amount: 49900,
+        amount: unlockPaise,
         currency: 'INR',
         status: 'paid',
         verified: true,
@@ -467,7 +470,7 @@ export const db = {
       payment.userId = userId;
       payment.profileId = profileId;
       payment.razorpayPaymentId = paymentId;
-      payment.amount = 49900;
+      payment.amount = unlockPaise;
       payment.currency = 'INR';
       payment.status = 'paid';
       payment.verified = true;

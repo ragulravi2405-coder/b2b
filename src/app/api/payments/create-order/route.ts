@@ -20,6 +20,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'profileId is required' }, { status: 400 });
     }
 
+    const rawProfile = db.getRawProfileById(profileId);
+    if (!rawProfile) {
+      return NextResponse.json({ success: false, error: 'Companion profile not found' }, { status: 404 });
+    }
+
+    const unlockPrice = rawProfile.unlockPrice ?? 499;
+    const amountInPaise = Math.round(unlockPrice * 100);
+
     // Check if already unlocked for this specific user
     const alreadyUnlocked = db.isContactUnlocked(userId, profileId);
     if (alreadyUnlocked) {
@@ -28,18 +36,10 @@ export async function POST(req: NextRequest) {
         success: true,
         alreadyUnlocked: true,
         locked: false,
-        price: 499,
+        price: unlockPrice,
         ...details
       });
     }
-
-    const rawProfile = db.getRawProfileById(profileId);
-    if (!rawProfile) {
-      return NextResponse.json({ success: false, error: 'Companion profile not found' }, { status: 404 });
-    }
-
-    const unlockPrice = 499; // Exactly ₹499
-    const amountInPaise = 49900; // Smallest currency unit for INR
 
     const razorpayKey = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_TlJDgRJz0sQAhB';
     const razorpaySecret = process.env.RAZORPAY_KEY_SECRET || '8eAycuEQDmkZ4PUugAnL26PF';
