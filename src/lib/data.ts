@@ -2,17 +2,18 @@ import { UserProfile } from '@/types';
 
 export const INITIAL_DEMO_PROFILES: UserProfile[] = [
   {
-    id: 'male-car-1',
-    username: 'Speedy Boy',
-    age: 22,
+    id: 'male-south-1',
+    username: 'Siddharth',
+    age: 24,
     orientation: 'Male Model',
     distanceKm: 1.8,
-    bio: 'Cartoon car lover & cool boy 🏎️⚡ Fast drives, gaming, late-night chats, and good energy. Direct WhatsApp unlock available on B2B.',
-    interests: ['Cars', 'Racing', 'Gaming', 'Music', 'Road Trips'],
+    bio: 'Handsome Chennai guy with warm vibes & spontaneous energy ☕✨ Passionate about cafe dates, road trips, and sincere companionship. Direct WhatsApp unlock available on B2B.',
+    interests: ['Fitness', 'Travel', 'Photography', 'Coffee', 'Music'],
     lookingFor: ['Friendship', 'Conversation', 'Dating'],
-    avatar: '/profiles/cartoon-car.jpg',
+    avatar: '/profiles/south-indian-1.jpg',
     additionalPhotos: [
-      '/profiles/cartoon-car.jpg'
+      '/profiles/south-indian-2.jpg',
+      '/profiles/south-indian-3.jpg'
     ],
     isVerified: true,
     isOnline: true,
@@ -21,17 +22,38 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     unlockPrice: 299
   },
   {
-    id: 'male-car-2',
-    username: 'Turbo Rider',
-    age: 23,
+    id: 'male-south-2',
+    username: 'Aakash',
+    age: 25,
     orientation: 'Male Model',
     distanceKm: 3.5,
-    bio: 'Electric blue supercar enthusiast 🏎️💙 Weekend road trips, EDM music playlists, and genuine talks. Connect with me on WhatsApp!',
-    interests: ['Supercars', 'Driving', 'Gaming', 'Fitness', 'Music'],
-    lookingFor: ['Friendship', 'Conversation'],
-    avatar: '/profiles/cartoon-car-blue.jpg',
+    bio: 'South Indian fitness model & workout enthusiast 💪🏽🔥 Disciplined, grounded, and respectful. Loving deep conversations, gym sessions, and healthy living.',
+    interests: ['Bodybuilding', 'Fitness', 'Photoshoots', 'Travel', 'Nutrition'],
+    lookingFor: ['Dating', 'Relationship'],
+    avatar: '/profiles/south-indian-2.jpg',
     additionalPhotos: [
-      '/profiles/cartoon-car-blue.jpg'
+      '/profiles/south-indian-1.jpg',
+      '/profiles/south-indian-3.jpg'
+    ],
+    isVerified: true,
+    isOnline: true,
+    lastActive: 'Active now',
+    whatsappNumber: '919087923641',
+    unlockPrice: 499
+  },
+  {
+    id: 'male-south-3',
+    username: 'Varun',
+    age: 26,
+    orientation: 'Male Model',
+    distanceKm: 5.2,
+    bio: 'Beach walks, sunsets, and easygoing conversations 🌅🌊 Coastal guy who values honesty, good vibes, and warm companionship. Connect on WhatsApp!',
+    interests: ['Beach', 'Travel', 'Music', 'Outdoors', 'Photography'],
+    lookingFor: ['Friendship', 'Conversation', 'Dating'],
+    avatar: '/profiles/south-indian-3.jpg',
+    additionalPhotos: [
+      '/profiles/south-indian-1.jpg',
+      '/profiles/south-indian-2.jpg'
     ],
     isVerified: true,
     isOnline: true,
@@ -240,17 +262,17 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     unlockPrice: 499
   },
   {
-    id: 'male-car-3',
+    id: 'male-south-4',
     username: 'Vignesh',
     age: 25,
     orientation: 'Male Model',
     distanceKm: 35.4,
-    bio: 'Software engineer by day, sports car & gaming nerd by night 🎮🏎️ Love weekend café hopping, acoustic Tamil songs, and relaxed talks. Direct WhatsApp unlock available!',
-    interests: ['Cars', 'Coding', 'Gaming', 'Cafes', 'Road Trips'],
+    bio: 'Software professional & fitness enthusiast 💻🏋️ Love weekend café hopping, acoustic Tamil songs, and relaxed talks. Direct WhatsApp unlock available!',
+    interests: ['Fitness', 'Coding', 'Gaming', 'Cafes', 'Road Trips'],
     lookingFor: ['Friendship', 'Conversation'],
-    avatar: '/profiles/cartoon-car.jpg',
+    avatar: '/profiles/south-indian-1.jpg',
     additionalPhotos: [
-      '/profiles/cartoon-car.jpg'
+      '/profiles/south-indian-2.jpg'
     ],
     isVerified: true,
     isOnline: true,
@@ -259,17 +281,17 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     unlockPrice: 299
   },
   {
-    id: 'male-car-4',
+    id: 'male-south-5',
     username: 'Dinesh',
     age: 24,
     orientation: 'Male Model',
     distanceKm: 42.0,
-    bio: 'Mechanical engineer & high-speed vehicle enthusiast 🏎️💨 Down-to-earth guy who loves long highway drives, night tea stalls, and sincere vibes. Chat with me!',
-    interests: ['Automobile', 'Supercars', 'Bikes', 'Travel', 'Music'],
+    bio: 'Mechanical engineer & workout buff 🏍️💪🏽 Down-to-earth guy who loves long highway drives, night tea stalls, and sincere vibes. Chat with me on WhatsApp!',
+    interests: ['Fitness', 'Bikes', 'Travel', 'Music', 'Outdoors'],
     lookingFor: ['Friendship', 'Dating'],
-    avatar: '/profiles/cartoon-car-blue.jpg',
+    avatar: '/profiles/south-indian-2.jpg',
     additionalPhotos: [
-      '/profiles/cartoon-car-blue.jpg'
+      '/profiles/south-indian-3.jpg'
     ],
     isVerified: true,
     isOnline: false,
@@ -278,36 +300,17 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     unlockPrice: 299
   },
   {
-    id: 'male-car-5',
+    id: 'male-south-6',
     username: 'Pradeep',
     age: 27,
     orientation: 'Male Model',
     distanceKm: 48.6,
-    bio: 'Architect & 3D visualizer 🏛️🏎️ Passionate about creative designs, sports cars, weekend road trips, and pleasant genuine companionship.',
-    interests: ['Architecture', 'Cars', 'Design', 'Photography', 'Coffee'],
+    bio: 'Architect & visual designer 🏛️✨ Passionate about creative designs, coastal sunset road trips, and pleasant genuine companionship.',
+    interests: ['Architecture', 'Design', 'Photography', 'Coffee', 'Fitness'],
     lookingFor: ['Conversation', 'Relationship'],
-    avatar: '/profiles/cartoon-car.jpg',
+    avatar: '/profiles/south-indian-3.jpg',
     additionalPhotos: [
-      '/profiles/cartoon-car.jpg'
-    ],
-    isVerified: true,
-    isOnline: true,
-    lastActive: 'Active now',
-    whatsappNumber: '919087923641',
-    unlockPrice: 299
-  },
-  {
-    id: 'male-car-6',
-    username: 'Surya',
-    age: 22,
-    orientation: 'Male Model',
-    distanceKm: 56.2,
-    bio: 'College athlete & motorsport enthusiast 🏎️⚡ Always active with high positive energy, fitness, gaming, and making authentic friends across Tamil Nadu.',
-    interests: ['Racing', 'Football', 'Gaming', 'Fitness', 'Music'],
-    lookingFor: ['Friendship', 'Conversation', 'Dating'],
-    avatar: '/profiles/cartoon-car-blue.jpg',
-    additionalPhotos: [
-      '/profiles/cartoon-car-blue.jpg'
+      '/profiles/south-indian-1.jpg'
     ],
     isVerified: true,
     isOnline: true,
@@ -323,7 +326,7 @@ export const DEFAULT_DEMO_USER = {
   age: 25,
   orientation: 'Male Model' as const,
   bio: 'Living authentically and looking for meaningful connections.',
-  avatar: '/profiles/model-1.jpg',
+  avatar: '/profiles/south-indian-1.jpg',
   role: 'user' as const,
   createdAt: new Date().toISOString()
 };
