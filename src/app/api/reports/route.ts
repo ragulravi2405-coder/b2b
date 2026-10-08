@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/store';
+import { getAuthUserFromRequest } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = getAuthUserFromRequest(req);
     const body = await req.json();
-    const { reporterUserId = 'current-user-1', reportedProfileId, reason, details } = body;
+    const reporterUserId = session?.userId || body.reporterUserId || 'anonymous_reporter';
+    const { reportedProfileId, reason, details } = body;
 
     if (!reportedProfileId || !reason) {
       return NextResponse.json({ success: false, error: 'Missing reportedProfileId or reason' }, { status: 400 });

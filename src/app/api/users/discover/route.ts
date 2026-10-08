@@ -1,22 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/store';
+import { getAuthUserFromRequest } from '@/lib/auth';
 
 export async function GET(req: NextRequest) {
   try {
+    const session = getAuthUserFromRequest(req);
     const { searchParams } = new URL(req.url);
     const orientation = searchParams.get('orientation') || 'All';
     const maxDistance = searchParams.get('maxDistance') ? parseInt(searchParams.get('maxDistance')!) : undefined;
     const query = searchParams.get('query') || '';
-    const userId = searchParams.get('userId') || 'current-user-1';
+
+    // Prioritize authenticated session userId; if not logged in, userLikes is empty
+    const userId = session?.userId || searchParams.get('userId');
 
     const profiles = db.getProfiles({
       orientation,
       maxDistance,
       query,
-      currentUserId: userId
+      currentUserId: userId || undefined
     });
 
-    const userLikes = db.getUserLikes(userId);
+    const userLikes = (userId && userId !== 'guest') ? db.getUserLikes(userId) : [];
 
     return NextResponse.json({
       success: true,

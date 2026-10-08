@@ -19,17 +19,22 @@ import { UserProfileView } from '@/components/UserProfileView';
 import { PricingModal } from '@/components/PricingModal';
 import { Footer } from '@/components/Footer';
 import { UserProfile, MatchRecord, AuthUser } from '@/types';
-import { DEFAULT_DEMO_USER } from '@/lib/data';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Sparkles, X, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export default function Home() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   // Navigation & View State
   const [currentTab, setCurrentTab] = useState<'discover' | 'matches' | 'likes' | 'profile'>('discover');
   const [showHero, setShowHero] = useState(true);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [subscriptionCredits, setSubscriptionCredits] = useState<number>(0);
 
-  // User State — starts logged out so user can test from signup
+  // User State & Onboarding
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
+  const [showFreshOnboarding, setShowFreshOnboarding] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('signup');
 
@@ -116,6 +121,32 @@ export default function Home() {
     }
   };
 
+  // Restore authenticated session from backend cookie or stored token
+  useEffect(() => {
+    const restoreSession = async () => {
+      try {
+        const storedToken = typeof window !== 'undefined' ? localStorage.getItem('b2b_auth_token') : null;
+        const res = await fetch('/api/auth/me', {
+          headers: storedToken ? { Authorization: `Bearer ${storedToken}` } : {}
+        });
+        const data = await res.json();
+        if (data.authenticated && data.user) {
+          setCurrentUser(data.user);
+          const isFresh =
+            (typeof window !== 'undefined' && localStorage.getItem('b2b_fresh_' + data.user.id) === 'new') ||
+            searchParams?.get('welcome') === 'true';
+          if (isFresh) {
+            setShowFreshOnboarding(true);
+            showToast(`Welcome, ${data.user.username} 👋 Let's get your workspace ready.`);
+          }
+        }
+      } catch (err) {
+        console.error('Session restore error:', err);
+      }
+    };
+    restoreSession();
+  }, [searchParams]);
+
   useEffect(() => {
     loadProfiles();
     loadMatches();
@@ -125,6 +156,40 @@ export default function Home() {
       setUnlockedContacts({});
     }
   }, [orientationFilter, maxDistanceFilter, searchQuery, currentUser]);
+
+  // Robust Logout function
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch (e) {}
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('b2b_auth_token');
+      localStorage.removeItem('b2b_user');
+    }
+    setCurrentUser(null);
+    setUserLikes([]);
+    setUserMatches([]);
+    setUnlockedContacts({});
+    showToast('Logged out successfully.');
+    window.location.replace('/login');
+  };
+
+  // Protected Tab Selection
+  const handleSelectTab = (tab: 'discover' | 'matches' | 'likes' | 'profile') => {
+    if (tab !== 'discover' && !currentUser) {
+      setAuthMode('login');
+      setIsAuthOpen(true);
+      showToast('Please sign in or create an account to view ' + tab + '! 🔒');
+      return;
+    }
+    setCurrentTab(tab);
+    if (tab !== 'discover') {
+      setShowHero(false);
+    } else {
+      const el = document.getElementById('discover-section');
+      el?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   // Handle Like Toggle
   const handleLikeToggle = async (profileId: string) => {
@@ -221,15 +286,7 @@ export default function Home() {
       <Navbar
         currentTab={currentTab}
         showHero={showHero}
-        onSelectTab={(tab) => {
-          setCurrentTab(tab);
-          if (tab !== 'discover') {
-            setShowHero(false);
-          } else {
-            const el = document.getElementById('discover-section');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }
-        }}
+        onSelectTab={handleSelectTab}
         onGoHome={() => {
           setCurrentTab('discover');
           setShowHero(true);
@@ -242,15 +299,73 @@ export default function Home() {
           setAuthMode(mode || 'signup');
           setIsAuthOpen(true);
         }}
-        onLogout={() => {
-          setCurrentUser(null);
-          showToast('Logged out successfully.');
-        }}
+        onLogout={handleLogout}
         onOpenPricing={() => setIsPricingModalOpen(true)}
       />
 
       {/* Main Content Area */}
       <main className="flex-1">
+        {/* FRESH ONBOARDING WELCOME CARD */}
+        {showFreshOnboarding && currentUser && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#201658] via-[#2F1C6A] to-[#17152A] text-white p-6 sm:p-8 shadow-xl border border-purple-500/20">
+              <button
+                onClick={() => {
+                  setShowFreshOnboarding(false);
+                  if (typeof window !== 'undefined') {
+                    localStorage.removeItem('b2b_fresh_' + currentUser.id);
+                  }
+                }}
+                className="absolute top-4 right-4 p-2 rounded-full text-white/60 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                aria-label="Dismiss banner"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-5 h-5 text-amber-400" />
+                <span className="text-[11px] font-bold uppercase tracking-wider text-purple-300 bg-white/10 px-2.5 py-0.5 rounded-full">
+                  Fresh Account Workspace
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black tracking-tight">
+                Welcome, {currentUser.username} 👋
+              </h2>
+              <p className="text-xs sm:text-sm text-purple-200 mt-1 max-w-xl leading-relaxed">
+                Let&apos;s get your workspace ready. Your account is completely private, personalized, and isolated with zero clutter.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mt-6">
+                <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10">
+                  <div className="w-7 h-7 rounded-xl bg-purple-500/40 flex items-center justify-center font-bold text-xs mb-2 text-purple-200">
+                    1
+                  </div>
+                  <h4 className="font-bold text-sm">Discover Companions</h4>
+                  <p className="text-xs text-purple-200/80 mt-1">
+                    Explore 16 verified South Indian models &amp; companions nearby.
+                  </p>
+                </div>
+                <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10">
+                  <div className="w-7 h-7 rounded-xl bg-purple-500/40 flex items-center justify-center font-bold text-xs mb-2 text-purple-200">
+                    2
+                  </div>
+                  <h4 className="font-bold text-sm">Mutual Matches</h4>
+                  <p className="text-xs text-purple-200/80 mt-1">
+                    Like profiles to match and unlock direct conversation.
+                  </p>
+                </div>
+                <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10">
+                  <div className="w-7 h-7 rounded-xl bg-purple-500/40 flex items-center justify-center font-bold text-xs mb-2 text-purple-200">
+                    3
+                  </div>
+                  <h4 className="font-bold text-sm">Instant WhatsApp</h4>
+                  <p className="text-xs text-purple-200/80 mt-1">
+                    Pay flat ₹499 to immediately reveal verified WhatsApp chat.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* DISCOVER TAB */}
         {currentTab === 'discover' && (
           <div>
@@ -367,10 +482,7 @@ export default function Home() {
           <UserProfileView
             user={currentUser}
             onOpenIdentityModal={() => setIsIdentityModalOpen(true)}
-            onLogout={() => {
-              setCurrentUser(null);
-              showToast('Logged out successfully.');
-            }}
+            onLogout={handleLogout}
             onOpenPricing={() => setIsPricingModalOpen(true)}
             onOpenAuth={() => {
               setAuthMode('signup');
@@ -387,15 +499,7 @@ export default function Home() {
       <MobileBottomNav
         currentTab={currentTab}
         showHero={showHero}
-        onSelectTab={(tab) => {
-          setCurrentTab(tab);
-          if (tab !== 'discover') {
-            setShowHero(false);
-          } else {
-            const el = document.getElementById('discover-section');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }
-        }}
+        onSelectTab={handleSelectTab}
         onGoHome={() => {
           setCurrentTab('discover');
           setShowHero(true);

@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/store';
+import { getAuthUserFromRequest } from '@/lib/auth';
 import crypto from 'crypto';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = getAuthUserFromRequest(req);
     const body = await req.json();
     const {
-      userId = 'current-user-1',
+      userId: bodyUserId,
       profileId,
       amount,
       method = 'razorpay_link',
@@ -18,6 +20,14 @@ export async function POST(req: NextRequest) {
       razorpaySignature,
       signature
     } = body;
+
+    const userId = session?.userId || bodyUserId;
+    if (!userId || userId === 'guest') {
+      return NextResponse.json({
+        success: false,
+        error: 'Authentication required to unlock contact.'
+      }, { status: 401 });
+    }
 
     if (!profileId) {
       return NextResponse.json({

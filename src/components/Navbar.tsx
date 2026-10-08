@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Logo } from './Logo';
 import {
   Compass,
@@ -151,18 +152,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           ) : (
             <div className="flex items-center gap-1.5 sm:gap-2">
-              <button
-                onClick={() => onOpenAuth('login')}
+              <Link
+                href="/login"
                 className="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-slate-700 hover:text-[#6C3BFF] hover:bg-purple-50 text-xs sm:text-sm font-bold border border-slate-200/90 transition-all"
               >
                 Log In
-              </button>
-              <button
-                onClick={() => onOpenAuth('signup')}
+              </Link>
+              <Link
+                href="/signup"
                 className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-[#6C3BFF] hover:bg-[#5828E8] text-white text-xs sm:text-sm font-bold shadow-md shadow-purple-200 transition-all active:scale-[0.98]"
               >
-                Sign In
-              </button>
+                Sign Up
+              </Link>
             </div>
           )}
         </div>

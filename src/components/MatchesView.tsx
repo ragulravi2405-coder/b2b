@@ -36,7 +36,7 @@ export const MatchesView: React.FC<MatchesViewProps> = ({
           </div>
           <h3 className="text-base font-bold text-slate-900">No Matches Yet</h3>
           <p className="text-xs text-slate-500 max-w-xs mx-auto mt-1 mb-5">
-            Like profiles in Discover. Liking Arjun, Karthik, or Vikram triggers an immediate mutual match!
+            Like profiles in Discover to start connecting. When a companion matches back with you, they will appear right here!
           </p>
           <button
             onClick={onExplore}

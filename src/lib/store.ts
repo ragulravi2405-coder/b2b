@@ -1,4 +1,4 @@
-import { UserProfile, LikeRecord, MatchRecord, ChatMessage, PaymentTransaction, ContactUnlock, UserReport, AdminStats, AuthUser } from '@/types';
+import { UserProfile, LikeRecord, MatchRecord, ChatMessage, PaymentTransaction, ContactUnlock, UserReport, AdminStats, AuthUser, StoredUser } from '@/types';
 import { INITIAL_DEMO_PROFILES, DEFAULT_DEMO_USER } from './data';
 import fs from 'fs';
 import path from 'path';
@@ -14,7 +14,7 @@ import { ReportModel } from '@/models/Report';
 
 interface StorageState {
   profiles: UserProfile[];
-  users: AuthUser[];
+  users: StoredUser[];
   likes: LikeRecord[];
   matches: MatchRecord[];
   messages: ChatMessage[];
@@ -64,7 +64,7 @@ function initializeDefaultState(): StorageState {
 
   return {
     profiles: [...INITIAL_DEMO_PROFILES],
-    users: [DEFAULT_DEMO_USER],
+    users: [],
     likes: seededLikes,
     matches: seededMatches,
     messages: seededMessages,
@@ -178,6 +178,54 @@ function saveState() {
 }
 
 export const db = {
+  // Users & Authentication
+  findUserByUsernameOrEmail(identifier: string): StoredUser | null {
+    if (!identifier) return null;
+    const clean = identifier.trim().toLowerCase();
+    const state = getState();
+    return state.users.find(u =>
+      u.username.toLowerCase() === clean ||
+      (u.email && u.email.toLowerCase() === clean)
+    ) || null;
+  },
+
+  findUserById(id: string): AuthUser | null {
+    if (!id) return null;
+    const state = getState();
+    const user = state.users.find(u => u.id === id);
+    if (!user) return null;
+    const { passwordHash, ...safeUser } = user;
+    return safeUser as AuthUser;
+  },
+
+  createUser(userData: StoredUser): AuthUser {
+    const state = getState();
+    const existing = state.users.find(u =>
+      u.username.toLowerCase() === userData.username.toLowerCase() ||
+      (userData.email && u.email && u.email.toLowerCase() === userData.email.toLowerCase())
+    );
+    if (existing) {
+      throw new Error('A user with this username or email already exists.');
+    }
+    state.users.push(userData);
+    saveState();
+    const { passwordHash, ...safeUser } = userData;
+    return safeUser as AuthUser;
+  },
+
+  updateUser(userId: string, data: Partial<AuthUser>): AuthUser | null {
+    const state = getState();
+    const userIndex = state.users.findIndex(u => u.id === userId);
+    if (userIndex === -1) return null;
+    state.users[userIndex] = {
+      ...state.users[userIndex],
+      ...data
+    };
+    saveState();
+    const { passwordHash, ...safeUser } = state.users[userIndex];
+    return safeUser as AuthUser;
+  },
+
   // Profiles
   getProfiles(options?: { orientation?: string; maxDistance?: number; query?: string; currentUserId?: string }): UserProfile[] {
     const state = getState();

@@ -67,6 +67,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         const data = await res.json();
         if (!data.success) throw new Error(data.error);
 
+        if (data.token) {
+          localStorage.setItem('b2b_auth_token', data.token);
+        }
+        if (data.user) {
+          localStorage.setItem('b2b_user', JSON.stringify(data.user));
+          localStorage.setItem('b2b_fresh_' + data.user.id, 'new');
+        }
+
         onAuthSuccess(data.user);
         onClose();
       } else {
@@ -81,6 +89,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         const data = await res.json();
         if (!data.success) throw new Error(data.error);
+
+        if (data.token) {
+          localStorage.setItem('b2b_auth_token', data.token);
+        }
+        if (data.user) {
+          localStorage.setItem('b2b_user', JSON.stringify(data.user));
+        }
 
         onAuthSuccess(data.user);
         onClose();

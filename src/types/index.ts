@@ -34,6 +34,10 @@ export interface AuthUser {
   createdAt: string;
 }
 
+export interface StoredUser extends AuthUser {
+  passwordHash?: string;
+}
+
 export interface LikeRecord {
   id: string;
   userId: string;

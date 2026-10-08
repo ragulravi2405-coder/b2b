@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/store';
+import { getAuthUserFromRequest } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = getAuthUserFromRequest(req);
     const body = await req.json();
-    const { userId = 'current-user-1', profileId, amount } = body;
+    const userId = session?.userId || body.userId;
+
+    if (!userId || userId === 'guest') {
+      return NextResponse.json({ success: false, error: 'Authentication required to unlock contact' }, { status: 401 });
+    }
+
+    const { profileId, amount } = body;
 
     if (!profileId) {
       return NextResponse.json({ success: false, error: 'profileId is required' }, { status: 400 });

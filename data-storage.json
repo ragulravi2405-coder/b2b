@@ -469,68 +469,27 @@
       "unlockPrice": 499
     }
   ],
-  "users": [],
+  "users": [
+    {
+      "id": "usr_1791450795086_i51cz4",
+      "username": "hnrr",
+      "age": 24,
+      "orientation": "Gay",
+      "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20width%3D%22100%25%22%20height%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22bg-hnrr%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%236C3BFF%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%2300C496%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%20%20%3ClinearGradient%20id%3D%22shirt-hnrr%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FF6B9D%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231E1B4B%22%20stop-opacity%3D%220.3%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3C%2Fdefs%3E%0A%0A%20%20%20%20%20%20%3C!--%20Background%20--%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%22200%22%20height%3D%22200%22%20rx%3D%2228%22%20fill%3D%22url(%23bg-hnrr)%22%20%2F%3E%0A%0A%20%20%20%20%20%20%3C!--%20Subtle%20geometric%20aura%20--%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22100%22%20cy%3D%22100%22%20r%3D%2276%22%20fill%3D%22%23FFFFFF%22%20fill-opacity%3D%220.12%22%20%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22150%22%20cy%3D%2250%22%20r%3D%2245%22%20fill%3D%22%23FFFFFF%22%20fill-opacity%3D%220.08%22%20%2F%3E%0A%0A%20%20%20%20%20%20%3C!--%20Neck%20%26%20Chest%20--%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M84%20122%20L84%20152%20L116%20152%20L116%20122%20Z%22%20fill%3D%22%23D4976A%22%20%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M84%20130%20C92%20138%2C%20108%20138%2C%20116%20130%22%20stroke%3D%22%23000000%22%20stroke-width%3D%221.5%22%20stroke-opacity%3D%220.1%22%20fill%3D%22none%22%20%2F%3E%0A%0A%20%20%20%20%20%20%3C!--%20Shirt%20%2F%20Collar%20--%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M35%20200%20C38%20165%2C%2065%20145%2C%2086%20148%20L100%20162%20L114%20148%20C135%20145%2C%20162%20165%2C%20165%20200%20Z%22%20fill%3D%22%23FF6B9D%22%20%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M86%20148%20L100%20170%20L114%20148%20Z%22%20fill%3D%22%23FFFFFF%22%20fill-opacity%3D%220.85%22%20%2F%3E%0A%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%3C!--%20Ears%20--%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%2258%22%20cy%3D%2288%22%20r%3D%2210%22%20fill%3D%22%23D4976A%22%20%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22142%22%20cy%3D%2288%22%20r%3D%2210%22%20fill%3D%22%23D4976A%22%20%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%2258%22%20cy%3D%2288%22%20r%3D%226%22%20fill%3D%22%23000000%22%20fill-opacity%3D%220.08%22%20%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22142%22%20cy%3D%2288%22%20r%3D%226%22%20fill%3D%22%23000000%22%20fill-opacity%3D%220.08%22%20%2F%3E%0A%0A%20%20%20%20%20%20%3C!--%20Head%20Base%20--%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M60%2080%20C60%2050%2C%2075%2042%2C%20100%2042%20C125%2042%2C%20140%2050%2C%20140%2080%20C140%20114%2C%20126%20136%2C%20100%20136%20C74%20136%2C%2060%20114%2C%2060%2080%20Z%22%20fill%3D%22%23D4976A%22%20%2F%3E%0A%0A%20%20%20%20%20%20%3C!--%20Hair%20--%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2065%20C45%2042%2C%2060%2020%2C%2095%2014%20C130%208%2C%20158%2024%2C%20154%2055%20C152%2068%2C%20145%2074%2C%20145%2074%20C140%2050%2C%20125%2035%2C%2095%2038%20C75%2040%2C%2058%2052%2C%2048%2065%20Z%22%20fill%3D%22%2317152A%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M75%2016%20C105%2010%2C%20145%2020%2C%20150%2045%20C135%2025%2C%2095%2024%2C%2075%2016%20Z%22%20fill%3D%22%2317152A%22%20opacity%3D%220.9%22%20%2F%3E%0A%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%3C!--%20Eyebrows%20--%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M72%2068%20Q82%2064%2092%2067%22%20stroke%3D%22%2317152A%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M108%2067%20Q118%2064%20128%2068%22%20stroke%3D%22%2317152A%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20%2F%3E%0A%0A%20%20%20%20%20%20%3C!--%20Eyes%20--%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%2282%22%20cy%3D%2278%22%20rx%3D%224.5%22%20ry%3D%224.5%22%20fill%3D%22%2317152A%22%20%2F%3E%0A%20%20%20%20%20%20%3Cellipse%20cx%3D%22118%22%20cy%3D%2278%22%20rx%3D%224.5%22%20ry%3D%224.5%22%20fill%3D%22%2317152A%22%20%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%2283.5%22%20cy%3D%2276.5%22%20r%3D%221.5%22%20fill%3D%22%23FFFFFF%22%20%2F%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%22119.5%22%20cy%3D%2276.5%22%20r%3D%221.5%22%20fill%3D%22%23FFFFFF%22%20%2F%3E%0A%0A%20%20%20%20%20%20%3C!--%20Nose%20--%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M100%2078%20L97%2094%20L104%2094%22%20stroke%3D%22%23000000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-opacity%3D%220.25%22%20fill%3D%22none%22%20%2F%3E%0A%0A%20%20%20%20%20%20%3C!--%20Smile%20--%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M88%20104%20Q100%20114%20112%20104%22%20stroke%3D%22%23831843%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%220.8%22%20%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M94%20105%20Q100%20110%20106%20105%22%20fill%3D%22%23FFFFFF%22%20%2F%3E%0A%0A%20%20%20%20%20%20%3C!--%20Beard%20%2F%20Facial%20Hair%20--%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M72%20108%20C75%20128%2C%2085%20138%2C%20100%20138%20C115%20138%2C%20125%20128%2C%20128%20108%20C128%20116%2C%20122%20136%2C%20100%20136%20C78%20136%2C%2072%20116%2C%2072%20108%20Z%22%20fill%3D%22%2317152A%22%20opacity%3D%220.35%22%20%2F%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%22M88%20120%20C92%20124%2C%20108%20124%2C%20112%20120%22%20stroke%3D%22%2317152A%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.4%22%20%2F%3E%0A%20%20%20%20%0A%0A%20%20%20%20%20%20%3C!--%20Glasses%20--%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%3C%2Fsvg%3E",
+      "role": "user",
+      "passwordHash": "c136c132ebb1bb41bdd28381b0139bf5:07b0664f12f2c83837fe44de5ef0f3ee58d6b15a390cab009130a317672f2bc9e5ca23486b23c324a227c359ab2c5c08adfebb45a2b4857790c5772a13c96eb3",
+      "createdAt": "2026-10-08T09:13:15.086Z"
+    }
+  ],
   "likes": [
     {
-      "id": "like_1791035347652",
-      "userId": "current-user-1",
-      "profileId": "male-2",
-      "createdAt": "2026-10-03T13:49:07.653Z"
-    },
-    {
-      "id": "like_1791449043818",
-      "userId": "current-user-1",
-      "profileId": "male-south-1",
-      "createdAt": "2026-10-08T08:44:03.818Z"
-    },
-    {
-      "id": "like_1791449043821",
-      "userId": "current-user-1",
-      "profileId": "male-south-2",
-      "createdAt": "2026-10-08T08:44:03.821Z"
+      "id": "like_1791450908260",
+      "userId": "usr_1791450795086_i51cz4",
+      "profileId": "male-south-6",
+      "createdAt": "2026-10-08T09:15:08.260Z"
     }
   ],
-  "matches": [
-    {
-      "id": "match_1791035347653",
-      "userId": "current-user-1",
-      "profileId": "male-2",
-      "matchedAt": "2026-10-03T13:49:07.653Z",
-      "profile": {
-        "id": "male-2",
-        "username": "Karthik",
-        "age": 26,
-        "orientation": "Male Model",
-        "distanceKm": 8,
-        "bio": "Desi athletic model with a passion for calisthenics, fashion shoots, and late-night podcasts. Always up for thought-provoking discussions, quiet coffee spots, or gym sessions.",
-        "interests": [
-          "Fitness",
-          "Fashion",
-          "Gaming",
-          "Travel",
-          "Coffee"
-        ],
-        "languages": [
-          "English",
-          "Telugu",
-          "Hindi"
-        ],
-        "lookingFor": [
-          "Friendship",
-          "Dating"
-        ],
-        "avatar": "/profiles/model-2.jpg",
-        "additionalPhotos": [
-          "/profiles/model-1.jpg",
-          "/profiles/model-4.jpg"
-        ],
-        "isVerified": true,
-        "isOnline": true,
-        "lastActive": "Active now",
-        "whatsappNumber": "919087923641"
-      }
-    }
-  ],
+  "matches": [],
   "messages": [],
   "payments": [
     {
@@ -807,50 +766,37 @@
       "amount": 299,
       "status": "verified",
       "createdAt": "2026-10-08T08:44:09.420Z"
+    },
+    {
+      "id": "tx_1791450135071",
+      "userId": "user_1791449498280",
+      "profileId": "male-4",
+      "profileName": "Vikram",
+      "razorpayOrderId": "order_b2b_1791450135068",
+      "razorpayPaymentId": "pay_rzpme_1791450135068_2604",
+      "amount": 499,
+      "status": "verified",
+      "createdAt": "2026-10-08T09:02:15.071Z"
+    },
+    {
+      "id": "tx_1791450874899",
+      "userId": "usr_1791450795086_i51cz4",
+      "profileId": "male-7",
+      "profileName": "Rohit",
+      "razorpayOrderId": "order_b2b_1791450874897",
+      "razorpayPaymentId": "pay_rzpme_1791450874897_2564",
+      "amount": 499,
+      "status": "verified",
+      "createdAt": "2026-10-08T09:14:34.899Z"
     }
   ],
   "contactUnlocks": [
     {
-      "id": "unlock_1790954619360",
-      "userId": "current-user-1",
-      "profileId": "male-8",
-      "paymentId": "wertfgyhuijkolp",
-      "unlockedAt": "2026-10-02T15:23:39.360Z"
-    },
-    {
-      "id": "unlock_1791036078312",
-      "userId": "current-user-1",
-      "profileId": "male-2",
-      "paymentId": "qwertyuiopas",
-      "unlockedAt": "2026-10-03T14:01:18.312Z"
-    },
-    {
-      "id": "unlock_1791443471700",
-      "userId": "current-user-1",
-      "profileId": "male-car-1",
-      "paymentId": "pay_rzpme_1791443471699_4614",
-      "unlockedAt": "2026-10-08T07:11:11.700Z"
-    },
-    {
-      "id": "unlock_1791443522922",
-      "userId": "current-user-1",
-      "profileId": "male-1",
-      "paymentId": "pay_rzpme_1791443522922_9762",
-      "unlockedAt": "2026-10-08T07:12:02.922Z"
-    },
-    {
-      "id": "unlock_1791448717924",
-      "userId": "current-user-1",
-      "profileId": "male-south-2",
-      "paymentId": "pay_rzpme_1791448717922_2538",
-      "unlockedAt": "2026-10-08T08:38:37.924Z"
-    },
-    {
-      "id": "unlock_1791449049420",
-      "userId": "current-user-1",
-      "profileId": "male-south-1",
-      "paymentId": "pay_rzpme_1791449049419_6989",
-      "unlockedAt": "2026-10-08T08:44:09.420Z"
+      "id": "unlock_1791450874899",
+      "userId": "usr_1791450795086_i51cz4",
+      "profileId": "male-7",
+      "paymentId": "pay_rzpme_1791450874897_2564",
+      "unlockedAt": "2026-10-08T09:14:34.899Z"
     }
   ],
   "reports": []

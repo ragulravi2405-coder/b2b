@@ -1,11 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/store';
+import { getAuthUserFromRequest } from '@/lib/auth';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ profileId: string }> }) {
   try {
     const { profileId } = await params;
+    const session = getAuthUserFromRequest(req);
     const { searchParams } = new URL(req.url);
-    const userId = searchParams.get('userId') || 'current-user-1';
+    const requestedUserId = searchParams.get('userId');
+
+    const userId = session?.userId || requestedUserId;
+
+    if (!userId || userId === 'guest') {
+      return NextResponse.json({
+        success: false,
+        error: 'Authentication required to access contact details.',
+        unlocked: false
+      }, { status: 401 });
+    }
 
     // Strict security check: verify if the authenticated user has unlocked this specific profile
     const isUnlocked = db.isContactUnlocked(userId, profileId);

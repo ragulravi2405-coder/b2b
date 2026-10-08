@@ -3,6 +3,7 @@ import { AuthUser } from '@/types';
 
 export interface UserDocument extends Omit<AuthUser, 'id'>, Document {
   id: string;
+  passwordHash?: string;
 }
 
 const UserSchema = new Schema<UserDocument>(
@@ -10,6 +11,7 @@ const UserSchema = new Schema<UserDocument>(
     id: { type: String, required: true, unique: true },
     username: { type: String, required: true },
     email: { type: String },
+    passwordHash: { type: String },
     age: { type: Number, required: true },
     orientation: { type: String, required: true },
     bio: { type: String },
