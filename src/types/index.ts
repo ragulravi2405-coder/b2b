@@ -69,8 +69,10 @@ export interface PaymentTransaction {
   profileName: string;
   razorpayOrderId: string;
   razorpayPaymentId: string;
-  amount: number; // ₹499
-  status: 'created' | 'pending' | 'verified' | 'failed';
+  amount: number; // 49900 paise for ₹499
+  currency?: string; // INR
+  status: 'created' | 'pending' | 'verified' | 'paid' | 'failed';
+  verified?: boolean;
   createdAt: string;
 }
 

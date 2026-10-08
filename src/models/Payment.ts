@@ -14,7 +14,9 @@ const PaymentSchema = new Schema<PaymentDocument>(
     razorpayOrderId: { type: String, required: true },
     razorpayPaymentId: { type: String, default: '' },
     amount: { type: Number, required: true },
-    status: { type: String, enum: ['created', 'pending', 'verified', 'failed'], default: 'created' },
+    currency: { type: String, default: 'INR' },
+    status: { type: String, enum: ['created', 'pending', 'verified', 'paid', 'failed'], default: 'created' },
+    verified: { type: Boolean, default: false },
     createdAt: { type: String, default: () => new Date().toISOString() }
   },
   {

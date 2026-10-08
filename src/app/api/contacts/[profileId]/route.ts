@@ -13,33 +13,39 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ prof
 
     if (!userId || userId === 'guest') {
       return NextResponse.json({
-        success: false,
-        error: 'Authentication required to access contact details.',
-        unlocked: false
-      }, { status: 401 });
+        success: true,
+        locked: true,
+        unlocked: false,
+        price: 499,
+        error: 'Authentication required to view contact status.'
+      });
     }
 
-    // Strict security check: verify if the authenticated user has unlocked this specific profile
+    // Strict security check: verify if the authenticated user has paid & unlocked this specific profile
     const isUnlocked = db.isContactUnlocked(userId, profileId);
 
-    const profile = db.getProfileById(profileId);
-    const amount = profile?.unlockPrice ?? 499;
-
     if (!isUnlocked) {
+      // While locked, NEVER expose telephone or WhatsApp contact info
       return NextResponse.json({
-        success: false,
-        error: `Contact Locked. A valid verified payment of ₹${amount} is required to access private contact info.`,
-        unlocked: false
-      }, { status: 403 });
+        success: true,
+        locked: true,
+        unlocked: false,
+        price: 499
+      });
     }
 
+    // Only after genuine verified payment, return protected contact information
     const contactDetails = db.getUnlockedContactDetails(userId, profileId);
+    const profile = db.getRawProfileById(profileId);
 
     return NextResponse.json({
       success: true,
+      locked: false,
       unlocked: true,
-      whatsappUrl: contactDetails.whatsappUrl,
-      whatsappNumber: contactDetails.whatsappNumber
+      price: 499,
+      name: profile?.username,
+      whatsappNumber: contactDetails.whatsappNumber,
+      whatsappUrl: contactDetails.whatsappUrl
     });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

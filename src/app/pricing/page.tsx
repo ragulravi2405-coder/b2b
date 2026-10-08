@@ -29,39 +29,8 @@ export default function PricingPage() {
     window.open('https://razorpay.me/@ravirahul601', '_blank', 'noopener,noreferrer');
   };
 
-  const handleConfirmVIP = async () => {
-    setSubLoading(true);
-    setSubError(null);
-
-    try {
-      const verifyRes = await fetch('/api/payments/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: 'current-user-1',
-          profileId: 'subscription_monthly_1499',
-          amount: 1499,
-          method: 'razorpay_link',
-          confirmLinkPayment: true
-        })
-      });
-
-      const verifyData = await verifyRes.json();
-      if (!verifyData.success) {
-        throw new Error(verifyData.error || 'VIP verification failed.');
-      }
-
-      setSubSuccess(true);
-      confetti({
-        particleCount: 120,
-        spread: 80,
-        origin: { y: 0.6 }
-      });
-    } catch (err: any) {
-      setSubError(err.message || 'Payment verification failed.');
-    } finally {
-      setSubLoading(false);
-    }
+  const handleConfirmVIP = () => {
+    window.location.href = '/?tab=discover';
   };
 
   return (
@@ -210,31 +179,15 @@ export default function PricingPage() {
                 <div className="mt-8 pt-4 border-t border-slate-100 space-y-2.5">
                   <button
                     type="button"
-                    onClick={handleVIPPayment}
+                    onClick={handleConfirmVIP}
                     className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#6C3BFF] to-[#E94B99] hover:opacity-95 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-purple-200 cursor-pointer"
                   >
                     <CreditCard className="w-4 h-4" />
-                    <span>1. Pay ₹1,499 via Razorpay / UPI</span>
-                    <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                    <span>Choose VIP Pass — ₹1,499 / Month</span>
                   </button>
-                  <button
-                    type="button"
-                    onClick={handleConfirmVIP}
-                    disabled={subLoading}
-                    className="w-full py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm cursor-pointer disabled:opacity-60"
-                  >
-                    {subLoading ? (
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Verifying VIP Payment...</span>
-                      </div>
-                    ) : (
-                      <>
-                        <ShieldCheck className="w-4 h-4" />
-                        <span>2. I Have Paid ₹1,499 — Activate VIP Pass</span>
-                      </>
-                    )}
-                  </button>
+                  <p className="text-[11px] text-slate-400 text-center">
+                    Enjoy up to 10 contact unlocks and priority matching.
+                  </p>
                   <div className="flex items-center justify-between text-[11px] text-slate-400">
                     <Link href="/refund" className="hover:text-[#6C3BFF] underline">
                       Refund Policy

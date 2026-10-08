@@ -352,29 +352,31 @@ export const db = {
   },
 
   // Razorpay Payments & Contact Unlocks
-  createPaymentOrder(userId: string, profileId: string, amount: number = 499) {
+  createPaymentOrder(userId: string, profileId: string, orderId?: string) {
     const state = getState();
     const profile = state.profiles.find(p => p.id === profileId);
     if (!profile) throw new Error('Profile not found');
 
-    const orderId = `order_b2b_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    const finalOrderId = orderId || `order_b2b_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
     const tx: PaymentTransaction = {
       id: `tx_${Date.now()}`,
       userId,
       profileId,
       profileName: profile.username,
-      razorpayOrderId: orderId,
+      razorpayOrderId: finalOrderId,
       razorpayPaymentId: '',
-      amount,
+      amount: 49900, // Exactly ₹499 in smallest unit (paise)
+      currency: 'INR',
       status: 'created',
+      verified: false,
       createdAt: new Date().toISOString()
     };
     state.payments.push(tx);
     saveState();
 
     return {
-      orderId,
-      amount,
+      orderId: finalOrderId,
+      amount: 49900,
       currency: 'INR',
       keyId: (process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID && !process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID.startsWith('rzp_test_'))
         ? process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
@@ -383,7 +385,7 @@ export const db = {
     };
   },
 
-  createPendingUnlockRequest(userId: string, profileId: string, amount: number = 499) {
+  createPendingUnlockRequest(userId: string, profileId: string, amount: number = 49900) {
     const state = getState();
     const profile = state.profiles.find(p => p.id === profileId);
     if (!profile) throw new Error('Profile not found');
@@ -396,8 +398,10 @@ export const db = {
       profileName: profile.username,
       razorpayOrderId: orderId,
       razorpayPaymentId: `pay_wait_${Date.now()}`,
-      amount,
+      amount: 49900,
+      currency: 'INR',
       status: 'pending',
+      verified: false,
       createdAt: new Date().toISOString()
     };
     state.payments.push(tx);
@@ -409,7 +413,8 @@ export const db = {
     const state = getState();
     const payment = state.payments.find(p => p.id === transactionId);
     if (!payment) throw new Error('Transaction not found');
-    payment.status = 'verified';
+    payment.status = 'paid';
+    payment.verified = true;
 
     const profile = state.profiles.find(p => p.id === payment.profileId);
     const alreadyUnlocked = state.contactUnlocks.some(u => u.userId === payment.userId && u.profileId === payment.profileId);
@@ -431,36 +436,44 @@ export const db = {
     const payment = state.payments.find(p => p.id === transactionId);
     if (!payment) throw new Error('Transaction not found');
     payment.status = 'failed';
+    payment.verified = false;
     saveState();
     return payment;
   },
 
-  verifyAndUnlockContact(userId: string, profileId: string, orderId: string, paymentId: string, signature?: string) {
+  verifyAndUnlockContact(userId: string, profileId: string, orderId: string, paymentId: string) {
     const state = getState();
     const profile = state.profiles.find(p => p.id === profileId);
     if (!profile) throw new Error('Profile not found');
 
-    // Update payment record
-    const payment = state.payments.find(p => p.razorpayOrderId === orderId) || {
-      id: `tx_${Date.now()}`,
-      userId,
-      profileId,
-      profileName: profile.username,
-      razorpayOrderId: orderId,
-      razorpayPaymentId: paymentId,
-      amount: profile.unlockPrice ?? 499,
-      status: 'verified' as const,
-      createdAt: new Date().toISOString()
-    };
-
-    payment.razorpayPaymentId = paymentId;
-    payment.status = 'verified';
-
-    if (!state.payments.some(p => p.id === payment.id)) {
+    // Update or add payment record
+    let payment = state.payments.find(p => p.razorpayOrderId === orderId);
+    if (!payment) {
+      payment = {
+        id: `tx_${Date.now()}`,
+        userId,
+        profileId,
+        profileName: profile.username,
+        razorpayOrderId: orderId,
+        razorpayPaymentId: paymentId,
+        amount: 49900,
+        currency: 'INR',
+        status: 'paid',
+        verified: true,
+        createdAt: new Date().toISOString()
+      };
       state.payments.push(payment);
+    } else {
+      payment.userId = userId;
+      payment.profileId = profileId;
+      payment.razorpayPaymentId = paymentId;
+      payment.amount = 49900;
+      payment.currency = 'INR';
+      payment.status = 'paid';
+      payment.verified = true;
     }
 
-    // Check if already unlocked
+    // Check if already unlocked for this specific user and profile
     const alreadyUnlocked = state.contactUnlocks.some(u => u.userId === userId && u.profileId === profileId);
     if (!alreadyUnlocked) {
       state.contactUnlocks.push({
@@ -476,23 +489,31 @@ export const db = {
 
     return {
       success: true,
+      unlocked: true,
+      locked: false,
       profileId,
+      username: profile.username,
       whatsappNumber: profile.whatsappNumber,
       whatsappUrl: `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on B2B!`)}`
     };
   },
 
-  isPaymentIdUsed(paymentId: string): boolean {
+  isPaymentIdUsed(paymentId: string, currentUserId?: string, currentProfileId?: string): boolean {
     if (!paymentId) return false;
     const state = getState();
     const cleanId = paymentId.trim().toLowerCase();
-    const usedInUnlocks = state.contactUnlocks.some(
-      u => u.paymentId && u.paymentId.trim().toLowerCase() === cleanId
+    
+    // Check if used for another user or another profile
+    const usedInOtherUnlocks = state.contactUnlocks.some(
+      u => u.paymentId && u.paymentId.trim().toLowerCase() === cleanId &&
+      (currentUserId ? u.userId !== currentUserId : true)
     );
-    const usedInPayments = state.payments.some(
-      p => p.razorpayPaymentId && p.razorpayPaymentId.trim().toLowerCase() === cleanId && p.status === 'verified'
+    const usedInOtherPayments = state.payments.some(
+      p => p.razorpayPaymentId && p.razorpayPaymentId.trim().toLowerCase() === cleanId &&
+      (p.status === 'verified' || p.status === 'paid') &&
+      (currentUserId ? p.userId !== currentUserId : true)
     );
-    return usedInUnlocks || usedInPayments;
+    return usedInOtherUnlocks || usedInOtherPayments;
   },
 
   isContactUnlocked(userId: string, profileId: string): boolean {

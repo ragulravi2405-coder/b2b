@@ -21,6 +21,7 @@ interface ChatWindowProps {
   activeProfile: UserProfile | null;
   onOpenUnlockPayment: (profile: UserProfile) => void;
   isContactUnlocked?: boolean;
+  currentUserId?: string;
 }
 
 export const ChatWindow: React.FC<ChatWindowProps> = ({
@@ -28,7 +29,8 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   onClose,
   activeProfile,
   onOpenUnlockPayment,
-  isContactUnlocked = false
+  isContactUnlocked = false,
+  currentUserId
 }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputText, setInputText] = useState('');
@@ -68,9 +70,10 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
     const userText = inputText.trim();
     setInputText('');
 
+    const myId = currentUserId || 'guest';
     const optimisticMsg: ChatMessage = {
       id: `temp_${Date.now()}`,
-      senderId: 'current-user-1',
+      senderId: myId,
       receiverId: activeProfile.id,
       text: userText,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -85,7 +88,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          senderId: 'current-user-1',
+          senderId: myId,
           text: userText
         })
       });
@@ -107,7 +110,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         const randomReply = replyPool[Math.floor(Math.random() * replyPool.length)];
 
         // Post demo reply
-        const replyRes = await fetch(`/api/messages/current-user-1`, {
+        const replyRes = await fetch(`/api/messages/${myId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -202,7 +205,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
           </div>
 
           {messages.map((msg) => {
-            const isMe = msg.senderId === 'current-user-1';
+            const isMe = msg.senderId === (currentUserId || 'guest');
             return (
               <div
                 key={msg.id}

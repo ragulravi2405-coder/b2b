@@ -28,47 +28,9 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onS
     window.open(razorpayLink, '_blank', 'noopener,noreferrer');
   };
 
-  const handleConfirmVIPPayment = async () => {
-    setSubLoading(true);
-    setSubError(null);
-
-    try {
-      const verifyRes = await fetch('/api/payments/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: 'current-user-1',
-          profileId: 'subscription_monthly_1499',
-          amount: 1499,
-          method: 'razorpay_link',
-          confirmLinkPayment: true
-        })
-      });
-
-      const verifyData = await verifyRes.json();
-      if (!verifyData.success) {
-        throw new Error(verifyData.error || 'VIP verification failed. Please try again.');
-      }
-
-      const generatedRef = verifyData.data?.paymentId || `pay_vip_${Date.now()}`;
-      setPaymentReference(generatedRef);
-      setSubSuccess(true);
-      try {
-        confetti({
-          particleCount: 150,
-          spread: 90,
-          origin: { y: 0.6 }
-        });
-      } catch (e) {}
-
-      if (onSubscribe) {
-        onSubscribe({ paymentId: generatedRef });
-      }
-    } catch (err: any) {
-      setSubError(err.message || 'VIP payment verification failed. Please try again.');
-    } finally {
-      setSubLoading(false);
-    }
+  const handleSelectVIP = () => {
+    onClose();
+    if (onSelectPlan) onSelectPlan('per_unlock');
   };
 
   return (
@@ -240,44 +202,15 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onS
               <div className="space-y-3">
                 <button
                   type="button"
-                  onClick={handleOpenRazorpay}
+                  onClick={handleSelectVIP}
                   className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#6C3BFF] to-[#E94B99] hover:opacity-95 text-white font-bold text-sm shadow-md shadow-purple-200 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <CreditCard className="w-4 h-4" />
-                  <span>1. Pay ₹1,499 via Razorpay / UPI</span>
-                  <ExternalLink className="w-4 h-4 opacity-80" />
+                  <span>Choose VIP Pass — ₹1,499</span>
                 </button>
-
-                <div className="p-2.5 rounded-xl bg-purple-50/60 border border-purple-100 text-center text-[11px] text-purple-900">
-                  <span>Pay link: </span>
-                  <a
-                    href={razorpayLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-bold underline text-[#6C3BFF]"
-                  >
-                    razorpay.me/@ravirahul601
-                  </a>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleConfirmVIPPayment}
-                  disabled={subLoading}
-                  className="w-full py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-200 transition-all flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
-                >
-                  {subLoading ? (
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>Activating VIP Pass...</span>
-                    </div>
-                  ) : (
-                    <>
-                      <ShieldCheck className="w-4 h-4" />
-                      <span>2. I Have Paid ₹1,499 — Activate VIP Pass</span>
-                    </>
-                  )}
-                </button>
+                <p className="text-[11px] text-slate-400 text-center">
+                  Includes 10 contact unlocks and priority verified companion matching.
+                </p>
               </div>
             )}
           </div>
