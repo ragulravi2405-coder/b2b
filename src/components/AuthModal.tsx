@@ -26,7 +26,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [age, setAge] = useState('24');
-  const [orientation, setOrientation] = useState<'Gay' | 'Bisexual'>('Gay');
   const [email, setEmail] = useState('');
   const [isAdultConfirmed, setIsAdultConfirmed] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -58,7 +57,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             password,
             confirmPassword,
             age: ageNum,
-            orientation,
             email,
             isAdultConfirmed
           })

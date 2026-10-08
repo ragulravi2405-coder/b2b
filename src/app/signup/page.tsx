@@ -15,7 +15,6 @@ export default function SignupPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [age, setAge] = useState('24');
-  const [orientation, setOrientation] = useState<'Gay' | 'Bisexual' | 'Male Model'>('Gay');
   const [isAdultConfirmed, setIsAdultConfirmed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -85,7 +84,6 @@ export default function SignupPage() {
           password,
           confirmPassword,
           age: parsedAge,
-          orientation,
           isAdultConfirmed
         })
       });
@@ -191,37 +189,21 @@ export default function SignupPage() {
               </div>
             </div>
 
-            {/* Age & Orientation */}
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Age (18+) <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="number"
-                  required
-                  min="18"
-                  max="80"
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                  className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:border-[#6C3BFF] focus:ring-2 focus:ring-purple-100 transition-all"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Orientation
-                </label>
-                <select
-                  value={orientation}
-                  onChange={(e) => setOrientation(e.target.value as any)}
-                  className="w-full text-xs sm:text-sm px-3 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:border-[#6C3BFF] focus:ring-2 focus:ring-purple-100 transition-all"
-                >
-                  <option value="Gay">Gay</option>
-                  <option value="Bisexual">Bisexual</option>
-                  <option value="Male Model">Male Model</option>
-                </select>
-              </div>
+            {/* Age */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Age (18+) <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                required
+                min="18"
+                max="80"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                placeholder="Must be 18 or older"
+                className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-2xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:border-[#6C3BFF] focus:ring-2 focus:ring-purple-100 transition-all"
+              />
             </div>
 
             {/* Password */}

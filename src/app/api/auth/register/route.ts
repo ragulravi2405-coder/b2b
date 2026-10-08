@@ -7,7 +7,7 @@ import { hashPassword, signSessionToken } from '@/lib/auth';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { username, password, confirmPassword, age, orientation = 'Gay', isAdultConfirmed, email } = body;
+    const { username, password, confirmPassword, age, orientation, isAdultConfirmed, email } = body;
 
     if (!username || !username.trim()) {
       return NextResponse.json({ success: false, error: 'Username is required' }, { status: 400 });
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
       username: cleanUsername,
       email: email?.trim() || undefined,
       age: parsedAge,
-      orientation: orientation === 'Bisexual' ? 'Bisexual' : 'Gay',
+      orientation: orientation || 'Member',
       avatar: generateMaleAvatarSvg(cleanUsername, {
         bgGradient: ['#6C3BFF', '#00C496'],
         skinTone: '#D4976A',

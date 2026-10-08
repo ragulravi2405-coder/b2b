@@ -13,7 +13,7 @@ const UserSchema = new Schema<UserDocument>(
     email: { type: String },
     passwordHash: { type: String },
     age: { type: Number, required: true },
-    orientation: { type: String, required: true },
+    orientation: { type: String, default: 'Member' },
     bio: { type: String },
     avatar: { type: String, required: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
