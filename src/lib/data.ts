@@ -267,12 +267,13 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     age: 25,
     orientation: 'Male Model',
     distanceKm: 35.4,
-    bio: 'Software professional & fitness enthusiast 💻🏋️ Love weekend café hopping, acoustic Tamil songs, and relaxed talks. Direct WhatsApp unlock available!',
+    bio: 'Software professional with clean aesthetics & positive mind 💻☕ Love weekend road trips, acoustic Tamil songs, and relaxed talks. Direct WhatsApp unlock available!',
     interests: ['Fitness', 'Coding', 'Gaming', 'Cafes', 'Road Trips'],
     lookingFor: ['Friendship', 'Conversation'],
-    avatar: '/profiles/south-indian-1.jpg',
+    avatar: '/profiles/south-indian-4.jpg',
     additionalPhotos: [
-      '/profiles/south-indian-2.jpg'
+      '/profiles/south-indian-5.jpg',
+      '/profiles/south-indian-6.jpg'
     ],
     isVerified: true,
     isOnline: true,
@@ -286,12 +287,13 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     age: 24,
     orientation: 'Male Model',
     distanceKm: 42.0,
-    bio: 'Mechanical engineer & workout buff 🏍️💪🏽 Down-to-earth guy who loves long highway drives, night tea stalls, and sincere vibes. Chat with me on WhatsApp!',
+    bio: 'Mechanical engineer & fitness enthusiast 🏍️💪🏽 Down-to-earth guy who loves long highway drives, night tea stalls, and sincere vibes. Chat with me on WhatsApp!',
     interests: ['Fitness', 'Bikes', 'Travel', 'Music', 'Outdoors'],
     lookingFor: ['Friendship', 'Dating'],
-    avatar: '/profiles/south-indian-2.jpg',
+    avatar: '/profiles/south-indian-5.jpg',
     additionalPhotos: [
-      '/profiles/south-indian-3.jpg'
+      '/profiles/south-indian-4.jpg',
+      '/profiles/south-indian-6.jpg'
     ],
     isVerified: true,
     isOnline: false,
@@ -308,9 +310,10 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     bio: 'Architect & visual designer 🏛️✨ Passionate about creative designs, coastal sunset road trips, and pleasant genuine companionship.',
     interests: ['Architecture', 'Design', 'Photography', 'Coffee', 'Fitness'],
     lookingFor: ['Conversation', 'Relationship'],
-    avatar: '/profiles/south-indian-3.jpg',
+    avatar: '/profiles/south-indian-6.jpg',
     additionalPhotos: [
-      '/profiles/south-indian-1.jpg'
+      '/profiles/south-indian-4.jpg',
+      '/profiles/south-indian-5.jpg'
     ],
     isVerified: true,
     isOnline: true,

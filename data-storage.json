@@ -387,7 +387,7 @@
       "age": 25,
       "orientation": "Male Model",
       "distanceKm": 35.4,
-      "bio": "Software professional & fitness enthusiast 💻🏋️ Love weekend café hopping, acoustic Tamil songs, and relaxed talks. Direct WhatsApp unlock available!",
+      "bio": "Software professional with clean aesthetics & positive mind 💻☕ Love weekend road trips, acoustic Tamil songs, and relaxed talks. Direct WhatsApp unlock available!",
       "interests": [
         "Fitness",
         "Coding",
@@ -399,9 +399,10 @@
         "Friendship",
         "Conversation"
       ],
-      "avatar": "/profiles/south-indian-1.jpg",
+      "avatar": "/profiles/south-indian-4.jpg",
       "additionalPhotos": [
-        "/profiles/south-indian-2.jpg"
+        "/profiles/south-indian-5.jpg",
+        "/profiles/south-indian-6.jpg"
       ],
       "isVerified": true,
       "isOnline": true,
@@ -415,7 +416,7 @@
       "age": 24,
       "orientation": "Male Model",
       "distanceKm": 42,
-      "bio": "Mechanical engineer & workout buff 🏍️💪🏽 Down-to-earth guy who loves long highway drives, night tea stalls, and sincere vibes. Chat with me on WhatsApp!",
+      "bio": "Mechanical engineer & fitness enthusiast 🏍️💪🏽 Down-to-earth guy who loves long highway drives, night tea stalls, and sincere vibes. Chat with me on WhatsApp!",
       "interests": [
         "Fitness",
         "Bikes",
@@ -427,9 +428,10 @@
         "Friendship",
         "Dating"
       ],
-      "avatar": "/profiles/south-indian-2.jpg",
+      "avatar": "/profiles/south-indian-5.jpg",
       "additionalPhotos": [
-        "/profiles/south-indian-3.jpg"
+        "/profiles/south-indian-4.jpg",
+        "/profiles/south-indian-6.jpg"
       ],
       "isVerified": true,
       "isOnline": false,
@@ -455,9 +457,10 @@
         "Conversation",
         "Relationship"
       ],
-      "avatar": "/profiles/south-indian-3.jpg",
+      "avatar": "/profiles/south-indian-6.jpg",
       "additionalPhotos": [
-        "/profiles/south-indian-1.jpg"
+        "/profiles/south-indian-4.jpg",
+        "/profiles/south-indian-5.jpg"
       ],
       "isVerified": true,
       "isOnline": true,
@@ -770,6 +773,17 @@
       "amount": 499,
       "status": "verified",
       "createdAt": "2026-10-08T07:12:02.922Z"
+    },
+    {
+      "id": "tx_1791448717924",
+      "userId": "current-user-1",
+      "profileId": "male-south-2",
+      "profileName": "Aakash",
+      "razorpayOrderId": "order_b2b_1791448717922",
+      "razorpayPaymentId": "pay_rzpme_1791448717922_2538",
+      "amount": 499,
+      "status": "verified",
+      "createdAt": "2026-10-08T08:38:37.924Z"
     }
   ],
   "contactUnlocks": [
@@ -800,6 +814,13 @@
       "profileId": "male-1",
       "paymentId": "pay_rzpme_1791443522922_9762",
       "unlockedAt": "2026-10-08T07:12:02.922Z"
+    },
+    {
+      "id": "unlock_1791448717924",
+      "userId": "current-user-1",
+      "profileId": "male-south-2",
+      "paymentId": "pay_rzpme_1791448717922_2538",
+      "unlockedAt": "2026-10-08T08:38:37.924Z"
     }
   ],
   "reports": []
