@@ -42,7 +42,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     try {
       if (mode === 'signup') {
         if (!isAdultConfirmed) {
-          throw new Error('You must confirm that you are 18 years or older to join Frndma.');
+          throw new Error('You must confirm that you are 18 years or older to join B2B.');
         }
 
         const ageNum = parseInt(age, 10);

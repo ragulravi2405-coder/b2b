@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenIdentityModal }) => {
           <div className="md:col-span-4 space-y-3.5">
             <Logo size="md" showTagline={true} />
             <p className="text-xs text-slate-500 max-w-sm leading-relaxed">
-              Frndma is a private, modern social connection and companion discovery platform for consenting adult Indian individuals seeking verified profiles.
+              B2B is a private, modern social connection and companion discovery platform for consenting adult Indian individuals seeking verified profiles.
             </p>
             <div className="flex items-center gap-2 text-xs font-semibold text-slate-600">
               <span className="w-2 h-2 rounded-full bg-[#00C496]" />
@@ -147,10 +147,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenIdentityModal }) => {
                   Operating &amp; Registered Entity:
                 </span>
                 <p className="text-[11px] text-slate-500 leading-snug">
-                  Frndma / <span className="text-slate-700 font-medium">[Registered Entity: Legal Entity / Proprietorship Name]</span>
+                  B2B / <span className="text-slate-700 font-medium">[Registered Entity: B2B Social Connect]</span>
                 </p>
                 <p className="text-[10px] text-slate-400 mt-0.5">
-                  [Operating Address: Insert Physical Business Address, City, State, PIN - India]
+                  [Operating Address: Chennai / Tamil Nadu, India]
                 </p>
               </div>
             </div>
@@ -167,14 +167,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenIdentityModal }) => {
             </p>
             <div className="pt-2 border-t border-slate-200/60 text-[10px] text-slate-500 space-y-1">
               <p className="font-semibold text-slate-700">Payment Security Notice:</p>
-              <p>Frndma never collects or stores your card numbers, CVV, OTP, or UPI PIN on our servers.</p>
+              <p>B2B never collects or stores your card numbers, CVV, OTP, or UPI PIN on our servers.</p>
             </div>
           </div>
         </div>
 
         {/* Bottom Credits & Copyright */}
         <div className="mt-10 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400">
-          <p>© 2026 Frndma. All rights reserved.</p>
+          <p>© 2026 B2B. All rights reserved.</p>
           <div className="flex items-center gap-1 text-slate-500">
             <span>Crafted with pride &amp; respect for genuine human connection</span>
             <Heart className="w-3 h-3 text-[#FF6B9D] fill-[#FF6B9D]" />

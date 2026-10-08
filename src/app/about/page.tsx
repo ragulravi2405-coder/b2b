@@ -18,8 +18,8 @@ import {
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'About Us | Frndma',
-  description: 'Learn about Frndma, our platform mission, verified companion discovery, transparent on-demand payments, and user safety standards.'
+  title: 'About Us | B2B',
+  description: 'Learn about B2B, our platform mission, verified companion discovery, transparent on-demand payments, and user safety standards.'
 };
 
 export default function AboutPage() {
@@ -34,13 +34,13 @@ export default function AboutPage() {
             <div className="absolute top-0 right-0 w-72 h-72 bg-purple-100/50 rounded-full blur-3xl -z-0 pointer-events-none" />
             <div className="relative z-10">
               <span className="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-100 text-[#6C3BFF]">
-                About Frndma
+                About B2B
               </span>
               <h1 className="text-3xl sm:text-4xl font-black text-slate-900 mt-3 tracking-tight">
                 Authentic Companionship. Verified Connections.
               </h1>
               <p className="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed max-w-2xl">
-                Frndma is a private digital discovery and connection platform created for consenting adult Indian individuals seeking verified social companions, photoshoot partners, and genuine friendships in a safe, transparent environment.
+                B2B is a private digital discovery and connection platform created for consenting adult Indian individuals seeking verified social companions, photoshoot partners, and genuine friendships in a safe, transparent environment.
               </p>
             </div>
           </div>
@@ -80,19 +80,19 @@ export default function AboutPage() {
 
           {/* Detailed Content Sections */}
           <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-xs space-y-8 text-slate-700">
-            {/* 1. What Frndma Is & Mission */}
+            {/* 1. What B2B Is & Mission */}
             <section className="space-y-3">
-              <h2 className="text-xl font-bold text-slate-900">What is Frndma?</h2>
+              <h2 className="text-xl font-bold text-slate-900">What is B2B?</h2>
               <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
-                Frndma was built to address the persistent challenges of modern social networking apps: rampant impersonation, bot profiles, unsolicited spam, and compromised privacy. Frndma replaces uncontrolled public broadcasts with an intentional discovery model where members review curated, authenticated profiles and unlock verified direct WhatsApp channels when there is mutual interest.
+                B2B was built to address the persistent challenges of modern social networking apps: rampant impersonation, bot profiles, unsolicited spam, and compromised privacy. B2B replaces uncontrolled public broadcasts with an intentional discovery model where members review curated, authenticated profiles and unlock verified direct WhatsApp channels when there is mutual interest.
               </p>
             </section>
 
-            {/* 2. Who Frndma Is For */}
+            {/* 2. Who B2B Is For */}
             <section className="space-y-3 border-t border-slate-100 pt-6">
-              <h2 className="text-xl font-bold text-slate-900">Who is Frndma For?</h2>
+              <h2 className="text-xl font-bold text-slate-900">Who is B2B For?</h2>
               <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
-                Frndma is strictly intended for <strong>consenting adults aged 18 years and older</strong> located in India. It serves individuals looking for:
+                B2B is strictly intended for <strong>consenting adults aged 18 years and older</strong> located in India. It serves individuals looking for:
               </p>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-slate-600 pt-1">
                 <li className="flex items-center gap-2">
@@ -113,13 +113,13 @@ export default function AboutPage() {
                 </li>
               </ul>
               <p className="text-xs text-amber-700 bg-amber-50 p-3 rounded-xl border border-amber-200 mt-2">
-                <strong>Strict 18+ Requirement:</strong> Minors under 18 years of age are strictly prohibited from creating accounts, accessing profiles, or making transactions on Frndma.
+                <strong>Strict 18+ Requirement:</strong> Minors under 18 years of age are strictly prohibited from creating accounts, accessing profiles, or making transactions on B2B.
               </p>
             </section>
 
             {/* 3. How to Use the Platform */}
             <section className="space-y-4 border-t border-slate-100 pt-6">
-              <h2 className="text-xl font-bold text-slate-900">How Does Frndma Work?</h2>
+              <h2 className="text-xl font-bold text-slate-900">How Does B2B Work?</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5">
                   <span className="w-6 h-6 rounded-full bg-[#6C3BFF] text-white text-xs font-bold flex items-center justify-center">1</span>
@@ -151,12 +151,12 @@ export default function AboutPage() {
             <section className="space-y-3 border-t border-slate-100 pt-6">
               <h2 className="text-xl font-bold text-slate-900">How Payments Work</h2>
               <p className="text-xs sm:text-sm leading-relaxed text-slate-600">
-                Frndma operates with complete financial transparency. We do not use hidden recurring subscriptions or unexpected auto-debits.
+                B2B operates with complete financial transparency. We do not use hidden recurring subscriptions or unexpected auto-debits.
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
                 <li><strong>Clear INR Pricing:</strong> Individual contact unlocks are priced at <strong>₹299 INR</strong> one-time, and VIP passes at <strong>₹1,499 INR</strong>. All prices include applicable taxes.</li>
                 <li><strong>Razorpay Gateway Integration:</strong> All transactions are processed through Razorpay Software Private Limited, supporting UPI (Google Pay, PhonePe, Paytm, BHIM), Debit/Credit Cards (Visa, Mastercard, RuPay), and Net Banking.</li>
-                <li><strong>Zero Credential Storage:</strong> Frndma does NOT collect or store your card numbers, CVV, OTP, or UPI PIN on our servers. All sensitive credentials are handled by Razorpay&apos;s encrypted checkout flow.</li>
+                <li><strong>Zero Credential Storage:</strong> B2B does NOT collect or store your card numbers, CVV, OTP, or UPI PIN on our servers. All sensitive credentials are handled by Razorpay&apos;s encrypted checkout flow.</li>
                 <li><strong>Digital Delivery:</strong> Contact access is unlocked digitally and immediately upon payment confirmation.</li>
               </ul>
             </section>
@@ -195,7 +195,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600">
                 <div>
                   <span className="font-semibold text-slate-800 block">Platform Brand:</span>
-                  <span>Frndma</span>
+                  <span>B2B</span>
                 </div>
                 <div>
                   <span className="font-semibold text-slate-800 block">Registered Entity Name:</span>
@@ -203,8 +203,8 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <span className="font-semibold text-slate-800 block">Official Support Email:</span>
-                  <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold hover:underline">
-                    frndma.com@gmail.com
+                  <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold hover:underline">
+                    B2B.com@gmail.com
                   </a>
                 </div>
                 <div>

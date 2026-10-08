@@ -72,7 +72,7 @@ export default function ContactPage() {
                 Customer Support &amp; Help Desk
               </span>
               <h1 className="text-3xl sm:text-4xl font-black text-slate-900 mt-3 tracking-tight">
-                Contact Frndma Support
+                Contact B2B Support
               </h1>
               <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-2xl leading-relaxed">
                 We are here to assist you with payment inquiries, account issues, profile verification, refunds, cancellations, and any service-related questions.
@@ -85,7 +85,7 @@ export default function ContactPage() {
             <Lock className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
             <div className="text-xs text-amber-900 leading-relaxed">
               <span className="font-bold">Security &amp; Privacy Notice: </span>
-              Frndma customer support will <strong>NEVER</strong> ask for your passwords, OTPs, credit/debit card numbers, CVV, or UPI PIN. Please do NOT submit sensitive financial passwords or PINs in your message.
+              B2B customer support will <strong>NEVER</strong> ask for your passwords, OTPs, credit/debit card numbers, CVV, or UPI PIN. Please do NOT submit sensitive financial passwords or PINs in your message.
             </div>
           </div>
 
@@ -100,10 +100,10 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Primary Support Email</h3>
                   <a
-                    href="mailto:frndma.com@gmail.com"
+                    href="mailto:B2B.com@gmail.com"
                     className="text-base font-bold text-[#6C3BFF] hover:underline break-all mt-0.5 block"
                   >
-                    frndma.com@gmail.com
+                    B2B.com@gmail.com
                   </a>
                   <p className="text-[11px] text-slate-500 mt-1">
                     Direct channel for payments, accounts, billing, refunds &amp; cancellations. Average turnaround: within 24 business hours.
@@ -148,7 +148,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Operating &amp; Registered Entity</h3>
                   <p className="text-xs font-bold text-slate-800 mt-0.5">
-                    Frndma / <span className="font-semibold text-slate-700">[Registered Entity: Legal Entity / Proprietorship Name]</span>
+                    B2B / <span className="font-semibold text-slate-700">[Registered Entity: Legal Entity / Proprietorship Name]</span>
                   </p>
                   <p className="text-xs text-slate-600 leading-relaxed mt-1">
                     [Operating Address: Insert Physical Business Address, City, State, PIN - India]
@@ -206,12 +206,12 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-xl font-black text-slate-900">Message Received!</h3>
                   <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Thank you for reaching out to Frndma Customer Support. A ticket has been created and our team will reply to <strong>{formData.email}</strong> within 24 business hours.
+                    Thank you for reaching out to B2B Customer Support. A ticket has been created and our team will reply to <strong>{formData.email}</strong> within 24 business hours.
                   </p>
                   <p className="text-xs text-slate-400">
                     For urgent payment inquiries, you can also email us directly at{' '}
-                    <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">
-                      frndma.com@gmail.com
+                    <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">
+                      B2B.com@gmail.com
                     </a>.
                   </p>
                   <button
@@ -359,11 +359,11 @@ export default function ContactPage() {
               <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
                 <span>Prefer writing via your email client?</span>
                 <a
-                  href="mailto:frndma.com@gmail.com?subject=Frndma%20Customer%20Support%20Inquiry"
+                  href="mailto:B2B.com@gmail.com?subject=B2B%20Customer%20Support%20Inquiry"
                   className="font-bold text-[#6C3BFF] hover:underline flex items-center gap-1"
                 >
                   <Mail className="w-3.5 h-3.5" />
-                  Email frndma.com@gmail.com directly
+                  Email B2B.com@gmail.com directly
                 </a>
               </div>
             </div>
@@ -376,7 +376,7 @@ export default function ContactPage() {
               <h2>Grievance Redressal Mechanism</h2>
             </div>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              In accordance with the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, Frndma has appointed a designated Grievance Officer to redress user grievances regarding platform terms, unauthorized transactions, or community violations.
+              In accordance with the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, B2B has appointed a designated Grievance Officer to redress user grievances regarding platform terms, unauthorized transactions, or community violations.
             </p>
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs text-slate-700">
               <div>
@@ -385,12 +385,12 @@ export default function ContactPage() {
               </div>
               <div>
                 <span className="text-[11px] text-slate-400 block font-bold uppercase">Entity:</span>
-                <span className="font-semibold text-slate-900">Frndma Support Desk</span>
+                <span className="font-semibold text-slate-900">B2B Support Desk</span>
               </div>
               <div>
                 <span className="text-[11px] text-slate-400 block font-bold uppercase">Email:</span>
-                <a href="mailto:frndma.com@gmail.com" className="font-semibold text-[#6C3BFF] underline">
-                  frndma.com@gmail.com
+                <a href="mailto:B2B.com@gmail.com" className="font-semibold text-[#6C3BFF] underline">
+                  B2B.com@gmail.com
                 </a>
               </div>
               <div>

@@ -35,7 +35,7 @@ export const UserProfileView: React.FC<UserProfileViewProps> = ({
           <div className="w-16 h-16 rounded-full bg-purple-50 text-[#6C3BFF] flex items-center justify-center mx-auto mb-4">
             <User className="w-8 h-8" />
           </div>
-          <h3 className="text-xl font-black text-slate-900 mb-2">Join Frndma</h3>
+          <h3 className="text-xl font-black text-slate-900 mb-2">Join B2B</h3>
           <p className="text-xs text-slate-500 mb-6">
             Sign in or create an account to view and manage your profile, matches, and unlocked contacts.
           </p>

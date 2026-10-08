@@ -79,7 +79,7 @@ export const Logo: React.FC<LogoProps> = ({
       <div className="flex flex-col">
         <div className="flex items-center gap-1.5">
           <span className={`font-black tracking-tight ${textSizes[size]} bg-gradient-to-r from-[#6C3BFF] via-[#8B5CF6] to-[#FF6B9D] bg-clip-text text-transparent`}>
-            Frndma
+            B2B
           </span>
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#00C496]"></span>
         </div>

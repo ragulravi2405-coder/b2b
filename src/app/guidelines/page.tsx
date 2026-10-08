@@ -5,8 +5,8 @@ import { ShieldCheck, Heart, AlertTriangle, UserCheck, Lock, CheckCircle2, Messa
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Community & User Guidelines | Frndma',
-  description: 'Community and user safety guidelines for Frndma. Learn about respectful communication, 18+ eligibility, and zero tolerance for harassment.'
+  title: 'Community & User Guidelines | B2B',
+  description: 'Community and user safety guidelines for B2B. Learn about respectful communication, 18+ eligibility, and zero tolerance for harassment.'
 };
 
 export default function GuidelinesPage() {
@@ -25,10 +25,10 @@ export default function GuidelinesPage() {
               Community &amp; User Guidelines
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Effective Date: October 2026 • Platform: Frndma
+              Effective Date: October 2026 • Platform: B2B
             </p>
             <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
-              Frndma is dedicated to cultivating a safe, affirming, respectful, and private space for consenting adult Indian individuals. All members must adhere to these guidelines to ensure mutual dignity and trust.
+              B2B is dedicated to cultivating a safe, affirming, respectful, and private space for consenting adult Indian individuals. All members must adhere to these guidelines to ensure mutual dignity and trust.
             </p>
           </div>
 
@@ -41,7 +41,7 @@ export default function GuidelinesPage() {
                 <span>1. Strictly 18+ Consenting Adults</span>
               </div>
               <p className="text-xs text-amber-900 leading-relaxed">
-                Frndma is strictly for adults aged 18 and older. Minors are barred from registration or interaction. Any account created by or depicting a minor is permanently banned immediately, and relevant technical data is reported to cyber law enforcement agencies.
+                B2B is strictly for adults aged 18 and older. Minors are barred from registration or interaction. Any account created by or depicting a minor is permanently banned immediately, and relevant technical data is reported to cyber law enforcement agencies.
               </p>
             </section>
 
@@ -95,11 +95,11 @@ export default function GuidelinesPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">5. Financial Safety &amp; Anti-Scam Practices</h2>
               <p>
-                All legitimate platform unlock fees on Frndma are handled exclusively through our official Razorpay checkout (₹299 INR / ₹1,499 INR).
+                All legitimate platform unlock fees on B2B are handled exclusively through our official Razorpay checkout (₹299 INR / ₹1,499 INR).
               </p>
               <ul className="list-disc pl-5 space-y-1">
                 <li>Never send direct money transfers, cash deposits, gift cards, or cryptocurrency to strangers on messaging apps.</li>
-                <li>Frndma staff will never contact you demanding additional fees, card details, or UPI transfers outside the official platform.</li>
+                <li>B2B staff will never contact you demanding additional fees, card details, or UPI transfers outside the official platform.</li>
                 <li>Report any user who solicits commercial financial schemes or advance fee scams.</li>
               </ul>
             </section>
@@ -116,8 +116,8 @@ export default function GuidelinesPage() {
                 </p>
                 <p>
                   <strong>Direct Grievance Email:</strong> Write to{' '}
-                  <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">
-                    frndma.com@gmail.com
+                  <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">
+                    B2B.com@gmail.com
                   </a>{' '}
                   with screenshots and profile details.
                 </p>

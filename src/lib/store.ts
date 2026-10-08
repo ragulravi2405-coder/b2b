@@ -309,7 +309,7 @@ export const db = {
     const profile = state.profiles.find(p => p.id === profileId);
     if (!profile) throw new Error('Profile not found');
 
-    const orderId = `order_frndma_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    const orderId = `order_b2b_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
     const tx: PaymentTransaction = {
       id: `tx_${Date.now()}`,
       userId,
@@ -340,7 +340,7 @@ export const db = {
     const profile = state.profiles.find(p => p.id === profileId);
     if (!profile) throw new Error('Profile not found');
 
-    const orderId = `order_frndma_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+    const orderId = `order_b2b_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
     const tx: PaymentTransaction = {
       id: `tx_${Date.now()}`,
       userId,
@@ -430,7 +430,7 @@ export const db = {
       success: true,
       profileId,
       whatsappNumber: profile.whatsappNumber,
-      whatsappUrl: `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on Frndma!`)}`
+      whatsappUrl: `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on B2B!`)}`
     };
   },
 
@@ -464,7 +464,7 @@ export const db = {
     return {
       unlocked: true,
       whatsappNumber: profile.whatsappNumber,
-      whatsappUrl: `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on Frndma!`)}`
+      whatsappUrl: `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on B2B!`)}`
     };
   },
 
@@ -475,7 +475,7 @@ export const db = {
     for (const u of unlocks) {
       const profile = this.getRawProfileById(u.profileId);
       if (profile && profile.whatsappNumber) {
-        result[u.profileId] = `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on Frndma!`)}`;
+        result[u.profileId] = `https://wa.me/${profile.whatsappNumber}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on B2B!`)}`;
       }
     }
     return result;

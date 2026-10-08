@@ -13,7 +13,8 @@ import {
   HelpCircle,
   Sparkles,
   AlertCircle,
-  FileText
+  FileText,
+  ExternalLink
 } from 'lucide-react';
 import Link from 'next/link';
 import { loadRazorpayScript } from '@/lib/razorpay';
@@ -25,76 +26,40 @@ export default function PricingPage() {
   const [subSuccess, setSubSuccess] = useState(false);
 
   const handleVIPPayment = async () => {
+    window.open('https://razorpay.me/@ravirahul601', '_blank', 'noopener,noreferrer');
+  };
+
+  const handleConfirmVIP = async () => {
     setSubLoading(true);
     setSubError(null);
 
     try {
-      const sdkLoaded = await loadRazorpayScript();
-      if (!sdkLoaded) {
-        throw new Error('Could not load Razorpay SDK. Please check your internet connection.');
-      }
-
-      let keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_TlJDgRJz0sQAhB';
-      if (!keyId || keyId.startsWith('rzp_test_')) {
-        keyId = 'rzp_live_TlJDgRJz0sQAhB';
-      }
-
-      const options: any = {
-        key: keyId,
-        amount: 1499 * 100, // ₹1,499 in paise
-        currency: 'INR',
-        name: 'Frndma',
-        description: 'VIP Pass (10 Contact Unlocks + VIP Profile Badge)',
-        handler: async function (response: any) {
-          setSubLoading(true);
-          try {
-            const verifyRes = await fetch('/api/payments/verify', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                userId: 'current-user-1',
-                profileId: 'subscription_monthly_1499',
-                razorpayOrderId: response.razorpay_order_id,
-                razorpayPaymentId: response.razorpay_payment_id,
-                razorpaySignature: response.razorpay_signature
-              })
-            });
-
-            const verifyData = await verifyRes.json();
-            if (!verifyData.success) {
-              throw new Error(verifyData.error || 'VIP verification failed on server.');
-            }
-
-            setSubSuccess(true);
-            confetti({
-              particleCount: 120,
-              spread: 80,
-              origin: { y: 0.6 }
-            });
-          } catch (err: any) {
-            setSubError(err.message || 'Payment verification failed.');
-          } finally {
-            setSubLoading(false);
-          }
-        },
-        modal: {
-          ondismiss: function () {
-            setSubLoading(false);
-          }
-        },
-        theme: {
-          color: '#6C3BFF'
-        }
-      };
-
-      const razorpayInstance = new (window as any).Razorpay(options);
-      razorpayInstance.on('payment.failed', function (resp: any) {
-        setSubLoading(false);
-        setSubError(`Payment failed: ${resp.error?.description || 'Transaction was declined.'}`);
+      const verifyRes = await fetch('/api/payments/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: 'current-user-1',
+          profileId: 'subscription_monthly_1499',
+          amount: 1499,
+          method: 'razorpay_link',
+          confirmLinkPayment: true
+        })
       });
-      razorpayInstance.open();
+
+      const verifyData = await verifyRes.json();
+      if (!verifyData.success) {
+        throw new Error(verifyData.error || 'VIP verification failed.');
+      }
+
+      setSubSuccess(true);
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
     } catch (err: any) {
-      setSubError(err.message || 'Could not open Razorpay checkout.');
+      setSubError(err.message || 'Payment verification failed.');
+    } finally {
       setSubLoading(false);
     }
   };
@@ -114,7 +79,7 @@ export default function PricingPage() {
               Simple, Transparent Pricing. Zero Hidden Fees.
             </h1>
             <p className="text-sm text-slate-600 mt-2 max-w-xl mx-auto leading-relaxed">
-              Every profile on Frndma is curated. Browse profiles freely and pay strictly when you choose to unlock direct verified WhatsApp contact details.
+              Every profile on B2B is curated. Browse profiles freely and pay strictly when you choose to unlock direct verified WhatsApp contact details.
             </p>
           </div>
 
@@ -242,23 +207,31 @@ export default function PricingPage() {
                   ₹1,499 Payment Verified! Your VIP Pass has been activated 🎉
                 </div>
               ) : (
-                <div className="mt-8 pt-4 border-t border-slate-100 space-y-3">
+                <div className="mt-8 pt-4 border-t border-slate-100 space-y-2.5">
                   <button
                     type="button"
                     onClick={handleVIPPayment}
+                    className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#6C3BFF] to-[#E94B99] hover:opacity-95 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-purple-200 cursor-pointer"
+                  >
+                    <CreditCard className="w-4 h-4" />
+                    <span>1. Pay ₹1,499 via Razorpay / UPI</span>
+                    <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleConfirmVIP}
                     disabled={subLoading}
-                    className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#6C3BFF] to-[#E94B99] hover:opacity-95 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-purple-200 cursor-pointer disabled:opacity-60"
+                    className="w-full py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm cursor-pointer disabled:opacity-60"
                   >
                     {subLoading ? (
                       <div className="flex items-center gap-2">
                         <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Opening Razorpay Gateway...</span>
+                        <span>Verifying VIP Payment...</span>
                       </div>
                     ) : (
                       <>
-                        <CreditCard className="w-4 h-4" />
-                        <span>Proceed to Payment — ₹1,499 INR</span>
-                        <Sparkles className="w-4 h-4" />
+                        <ShieldCheck className="w-4 h-4" />
+                        <span>2. I Have Paid ₹1,499 — Activate VIP Pass</span>
                       </>
                     )}
                   </button>
@@ -315,7 +288,7 @@ export default function PricingPage() {
                 </div>
                 <h3 className="font-bold text-slate-900 text-xs sm:text-sm">Customer Support</h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Dedicated customer support desk reachable at <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">frndma.com@gmail.com</a> for billing or technical help.
+                  Dedicated customer support desk reachable at <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">B2B.com@gmail.com</a> for billing or technical help.
                 </p>
               </div>
 
@@ -337,7 +310,7 @@ export default function PricingPage() {
             <div>
               <h2 className="text-lg font-bold text-slate-900 mb-2">Service Specifications &amp; Billing Terms</h2>
               <p>
-                Frndma is an online digital discovery platform connecting adult Indian individuals with verified companions.
+                B2B is an online digital discovery platform connecting adult Indian individuals with verified companions.
               </p>
             </div>
 
@@ -356,7 +329,7 @@ export default function PricingPage() {
               </div>
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
                 <span className="font-bold text-slate-800 text-xs block">Customer Support &amp; Disputes</span>
-                <span className="text-xs text-slate-600">Email: <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] underline">frndma.com@gmail.com</a> | Helpline: +91 90879 23641</span>
+                <span className="text-xs text-slate-600">Email: <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] underline">B2B.com@gmail.com</a> | Helpline: +91 90879 23641</span>
               </div>
             </div>
 

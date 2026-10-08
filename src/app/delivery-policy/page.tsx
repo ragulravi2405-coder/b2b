@@ -5,8 +5,8 @@ import { Zap, CheckCircle2, ShieldCheck, Mail, Clock, Lock, AlertCircle } from '
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Digital Delivery & Fulfillment Policy | Frndma',
-  description: 'Digital service fulfillment and delivery policy for Frndma. Learn how instant online access works for contact unlocks.'
+  title: 'Digital Delivery & Fulfillment Policy | B2B',
+  description: 'Digital service fulfillment and delivery policy for B2B. Learn how instant online access works for contact unlocks.'
 };
 
 export default function DeliveryPolicyPage() {
@@ -25,10 +25,10 @@ export default function DeliveryPolicyPage() {
               Digital Delivery &amp; Fulfillment Policy
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Effective Date: October 2026 • Platform: Frndma
+              Effective Date: October 2026 • Platform: B2B
             </p>
             <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
-              This policy explains how services and digital unlocks are fulfilled and delivered to users on the <strong>Frndma</strong> online digital platform.
+              This policy explains how services and digital unlocks are fulfilled and delivered to users on the <strong>B2B</strong> online digital platform.
             </p>
           </div>
 
@@ -41,7 +41,7 @@ export default function DeliveryPolicyPage() {
                 <span>1. 100% Digital Online Services — No Physical Goods Shipped</span>
               </div>
               <p className="text-xs text-slate-700 leading-relaxed">
-                Frndma operates exclusively as an online digital matchmaking and companion discovery service platform. <strong>We do NOT sell, pack, or ship physical goods.</strong> Accordingly, there are no physical postal deliveries, courier dispatches, or shipping charges applicable to transactions on Frndma.
+                B2B operates exclusively as an online digital matchmaking and companion discovery service platform. <strong>We do NOT sell, pack, or ship physical goods.</strong> Accordingly, there are no physical postal deliveries, courier dispatches, or shipping charges applicable to transactions on B2B.
               </p>
             </section>
 
@@ -49,7 +49,7 @@ export default function DeliveryPolicyPage() {
             <section className="space-y-3">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">2. How Digital Delivery Works</h2>
               <p>
-                When you make a payment on Frndma (whether for an individual contact unlock at ₹299 INR or a VIP pass at ₹1,499 INR):
+                When you make a payment on B2B (whether for an individual contact unlock at ₹299 INR or a VIP pass at ₹1,499 INR):
               </p>
               <ul className="list-disc pl-5 space-y-2">
                 <li>
@@ -68,7 +68,7 @@ export default function DeliveryPolicyPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">3. Ongoing Access to Unlocked Contacts</h2>
               <p>
-                Once an individual contact is unlocked, the verified WhatsApp chat link remains permanently associated with your logged-in Frndma account. You can revisit the companion&apos;s profile at any time in the future without paying again.
+                Once an individual contact is unlocked, the verified WhatsApp chat link remains permanently associated with your logged-in B2B account. You can revisit the companion&apos;s profile at any time in the future without paying again.
               </p>
             </section>
 
@@ -79,9 +79,9 @@ export default function DeliveryPolicyPage() {
                 In rare instances, an intermittent network disconnection between your bank, Razorpay, and our servers may delay the automatic unlock trigger. If your payment was deducted but the contact does not unlock within 2 minutes:
               </p>
               <ol className="list-decimal pl-5 space-y-1.5">
-                <li>Refresh your browser page while remaining logged into your Frndma account.</li>
+                <li>Refresh your browser page while remaining logged into your B2B account.</li>
                 <li>Check whether your bank transaction shows a confirmed debit with a valid Razorpay Payment ID (<code>pay_...</code>).</li>
-                <li>If the contact remains locked, email our support team immediately at <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">frndma.com@gmail.com</a> with your Payment ID.</li>
+                <li>If the contact remains locked, email our support team immediately at <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">B2B.com@gmail.com</a> with your Payment ID.</li>
               </ol>
               <p className="text-xs text-slate-500 pt-1">
                 Our support team will manually verify the payment in our Razorpay merchant dashboard and activate your digital access or initiate an immediate full refund in accordance with our <Link href="/refund" className="text-[#6C3BFF] underline">Refund Policy</Link>.
@@ -93,9 +93,9 @@ export default function DeliveryPolicyPage() {
               <h2 className="text-base sm:text-lg font-bold text-slate-900">5. Fulfillment Support Contact</h2>
               <p>For any questions regarding service fulfillment or order status, contact:</p>
               <div className="bg-slate-50 p-4 rounded-xl text-xs space-y-1 border border-slate-100">
-                <p><strong>Support Email:</strong> <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">frndma.com@gmail.com</a></p>
+                <p><strong>Support Email:</strong> <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">B2B.com@gmail.com</a></p>
                 <p><strong>Support Helpline:</strong> +91 90879 23641 (Mon – Sat, 9:00 AM – 8:00 PM IST)</p>
-                <p><strong>Platform:</strong> Frndma</p>
+                <p><strong>Platform:</strong> B2B</p>
               </div>
             </section>
           </div>

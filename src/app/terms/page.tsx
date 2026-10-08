@@ -5,8 +5,8 @@ import { ShieldCheck, FileCheck, AlertTriangle, Scale, Lock, Mail, CreditCard } 
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Terms & Conditions | Frndma',
-  description: 'Terms and Conditions of service for Frndma digital companion discovery and contact unlock platform.'
+  title: 'Terms & Conditions | B2B',
+  description: 'Terms and Conditions of service for B2B digital companion discovery and contact unlock platform.'
 };
 
 export default function TermsPage() {
@@ -25,10 +25,10 @@ export default function TermsPage() {
               Terms &amp; Conditions
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Effective Date: October 2026 • Platform: Frndma
+              Effective Date: October 2026 • Platform: B2B
             </p>
             <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
-              Please read these Terms and Conditions carefully before creating an account, browsing profiles, or making digital unlock purchases on the <strong>Frndma</strong> digital networking and companion discovery platform.
+              Please read these Terms and Conditions carefully before creating an account, browsing profiles, or making digital unlock purchases on the <strong>B2B</strong> digital networking and companion discovery platform.
             </p>
           </div>
 
@@ -38,7 +38,7 @@ export default function TermsPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">1. Acceptance of Terms</h2>
               <p>
-                By registering, accessing, browsing, or utilizing any service provided on Frndma, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions and our Privacy Policy. If you do not agree to all terms herein, you must immediately discontinue using the website and its services.
+                By registering, accessing, browsing, or utilizing any service provided on B2B, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions and our Privacy Policy. If you do not agree to all terms herein, you must immediately discontinue using the website and its services.
               </p>
             </section>
 
@@ -62,7 +62,7 @@ export default function TermsPage() {
               <ul className="list-disc pl-5 space-y-1">
                 <li>Provide accurate, truthful, and authentic information during signup.</li>
                 <li>Maintain the absolute confidentiality of your account credentials.</li>
-                <li>Promptly notify customer support at <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] underline">frndma.com@gmail.com</a> if you suspect any unauthorized access to your account.</li>
+                <li>Promptly notify customer support at <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] underline">B2B.com@gmail.com</a> if you suspect any unauthorized access to your account.</li>
                 <li>Accept sole responsibility for all actions and payments occurring under your account.</li>
               </ul>
             </section>
@@ -71,14 +71,14 @@ export default function TermsPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">4. Profile Information &amp; Content Authenticity</h2>
               <p>
-                Frndma enables members to upload photos, bios, and personal interests. You agree that all content you post is your own, accurate, and does not impersonate another person, violate intellectual property rights, or depict anyone without their express written consent. Frndma reserves the right to review, edit, or remove profiles that violate community standards.
+                B2B enables members to upload photos, bios, and personal interests. You agree that all content you post is your own, accurate, and does not impersonate another person, violate intellectual property rights, or depict anyone without their express written consent. B2B reserves the right to review, edit, or remove profiles that violate community standards.
               </p>
             </section>
 
             {/* 5. Acceptable Use & Prohibited Activities */}
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">5. Acceptable Use &amp; Prohibited Activities</h2>
-              <p>You agree NOT to engage in any of the following activities on or through Frndma:</p>
+              <p>You agree NOT to engage in any of the following activities on or through B2B:</p>
               <ul className="list-disc pl-5 space-y-1.5">
                 <li>Harass, threaten, stalk, abuse, extort, or intimidate any user, companion, or model.</li>
                 <li>Post, transmit, or request non-consensual sexual material, child sexual abuse material (CSAM), or any unlawful content.</li>
@@ -93,7 +93,7 @@ export default function TermsPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">6. Account Suspension &amp; Termination</h2>
               <p>
-                Frndma reserves the right to immediately suspend or permanently terminate any user account without prior notice if we determine, in our sole discretion, that the user has violated these Terms, engaged in fraudulent activities, harassed other users, or breached applicable Indian laws.
+                B2B reserves the right to immediately suspend or permanently terminate any user account without prior notice if we determine, in our sole discretion, that the user has violated these Terms, engaged in fraudulent activities, harassed other users, or breached applicable Indian laws.
               </p>
             </section>
 
@@ -101,7 +101,7 @@ export default function TermsPage() {
             <section className="space-y-3">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">7. Description of Services &amp; Transparent Pricing</h2>
               <p>
-                Frndma provides a curated online discovery service connecting adult Indian individuals with verified companions. Our paid offerings consist of digital contact unlocks:
+                B2B provides a curated online discovery service connecting adult Indian individuals with verified companions. Our paid offerings consist of digital contact unlocks:
               </p>
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
                 <div className="flex items-center justify-between text-slate-900 font-bold">
@@ -120,7 +120,7 @@ export default function TermsPage() {
                 </p>
               </div>
               <p className="text-xs text-slate-500">
-                All prices are stated in Indian Rupees (INR) and are inclusive of applicable taxes. Delivery occurs digitally and instantaneously upon captured payment. Interpersonal chats occurring on WhatsApp after contact unlock are private and external to Frndma.
+                All prices are stated in Indian Rupees (INR) and are inclusive of applicable taxes. Delivery occurs digitally and instantaneously upon captured payment. Interpersonal chats occurring on WhatsApp after contact unlock are private and external to B2B.
               </p>
             </section>
 
@@ -128,11 +128,11 @@ export default function TermsPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">8. Payment Gateway via Razorpay</h2>
               <p>
-                All financial payments on Frndma are handled securely through <strong>Razorpay Software Private Limited</strong>.
+                All financial payments on B2B are handled securely through <strong>Razorpay Software Private Limited</strong>.
               </p>
               <ul className="list-disc pl-5 space-y-1">
                 <li>Payment methods accepted include UPI (Google Pay, PhonePe, Paytm, BHIM), Debit &amp; Credit Cards (Visa, Mastercard, RuPay), and Net Banking.</li>
-                <li>Frndma does not store or process your banking passwords, card numbers, CVVs, or UPI PINs.</li>
+                <li>B2B does not store or process your banking passwords, card numbers, CVVs, or UPI PINs.</li>
                 <li>You agree to use only genuine, authorized payment instruments. Any fraudulent chargeback or unauthorized transaction will be reported to appropriate cyber crime enforcement agencies.</li>
               </ul>
             </section>
@@ -153,7 +153,7 @@ export default function TermsPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">10. Intellectual Property Rights</h2>
               <p>
-                All software, user interface design, logos, brand elements, layout, graphics, text, and proprietary code of Frndma are protected under Indian copyright, trademark, and intellectual property laws. Unauthorized reproduction, copying, distribution, or commercial exploitation is strictly prohibited.
+                All software, user interface design, logos, brand elements, layout, graphics, text, and proprietary code of B2B are protected under Indian copyright, trademark, and intellectual property laws. Unauthorized reproduction, copying, distribution, or commercial exploitation is strictly prohibited.
               </p>
             </section>
 
@@ -161,10 +161,10 @@ export default function TermsPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">11. Service Availability &amp; Limitation of Liability</h2>
               <p>
-                Frndma strives to maintain 24/7 service uptime; however, we do not warrant that platform operations will be completely uninterrupted or error-free.
+                B2B strives to maintain 24/7 service uptime; however, we do not warrant that platform operations will be completely uninterrupted or error-free.
               </p>
               <p>
-                To the maximum extent permitted by applicable Indian law, Frndma, its operators, directors, and affiliates shall not be liable for any indirect, incidental, punitive, or consequential damages, loss of data, personal disputes between users, or third-party telecommunications outages arising from your use of the platform.
+                To the maximum extent permitted by applicable Indian law, B2B, its operators, directors, and affiliates shall not be liable for any indirect, incidental, punitive, or consequential damages, loss of data, personal disputes between users, or third-party telecommunications outages arising from your use of the platform.
               </p>
             </section>
 
@@ -183,7 +183,7 @@ export default function TermsPage() {
                 For customer support, billing inquiries, or legal notices regarding these Terms, contact our support team at:
               </p>
               <div className="bg-slate-50 p-4 rounded-xl text-xs space-y-1 border border-slate-100">
-                <p><strong>Primary Support Email:</strong> <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">frndma.com@gmail.com</a></p>
+                <p><strong>Primary Support Email:</strong> <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">B2B.com@gmail.com</a></p>
                 <p><strong>Support Helpline:</strong> +91 90879 23641 (Mon – Sat, 9:00 AM – 8:00 PM IST)</p>
                 <p><strong>Operating Address:</strong> [Operating Address: Insert Physical Business Address, City, State, PIN - India]</p>
               </div>

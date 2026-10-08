@@ -5,8 +5,8 @@ import { RefreshCcw, CheckCircle2, AlertCircle, Clock, ShieldCheck, Mail, HelpCi
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Refund & Cancellation Policy | Frndma',
-  description: 'Cancellation and Refund Policy for digital contact unlocks on Frndma. Learn about eligibility, processing timelines, and support at frndma.com@gmail.com.'
+  title: 'Refund & Cancellation Policy | B2B',
+  description: 'Cancellation and Refund Policy for digital contact unlocks on B2B. Learn about eligibility, processing timelines, and support at B2B.com@gmail.com.'
 };
 
 export default function RefundPage() {
@@ -25,10 +25,10 @@ export default function RefundPage() {
               Refund &amp; Cancellation Policy
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Effective Date: October 2026 • Platform: Frndma
+              Effective Date: October 2026 • Platform: B2B
             </p>
             <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
-              At <strong>Frndma</strong>, we are committed to providing a transparent, fair, and prompt experience for our members. This policy explains the conditions under which cancellations are permitted, how refund requests are evaluated, and the expected processing timelines for our digital contact unlock services.
+              At <strong>B2B</strong>, we are committed to providing a transparent, fair, and prompt experience for our members. This policy explains the conditions under which cancellations are permitted, how refund requests are evaluated, and the expected processing timelines for our digital contact unlock services.
             </p>
           </div>
 
@@ -38,7 +38,7 @@ export default function RefundPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">1. Nature of Digital Service &amp; Delivery</h2>
               <p>
-                Frndma provides <strong>instant digital access services</strong> (namely, unlocking verified WhatsApp contact details and VIP bundles). Delivery occurs digitally and immediately upon confirmation of payment from our payment gateway partner, Razorpay.
+                B2B provides <strong>instant digital access services</strong> (namely, unlocking verified WhatsApp contact details and VIP bundles). Delivery occurs digitally and immediately upon confirmation of payment from our payment gateway partner, Razorpay.
               </p>
               <p>
                 Because access is delivered immediately and electronically upon payment capture, the service is deemed &quot;consumed&quot; once the verified contact details are decrypted and displayed to the user.
@@ -95,7 +95,7 @@ export default function RefundPage() {
                   <strong>Terms of Service Violations:</strong> Accounts suspended or terminated due to abusive behavior, harassment, fraud, or violation of Community Guidelines.
                 </li>
                 <li>
-                  <strong>Third-Party WhatsApp Outages:</strong> Temporary service interruptions or server downtime on WhatsApp or Meta platforms beyond Frndma&apos;s control.
+                  <strong>Third-Party WhatsApp Outages:</strong> Temporary service interruptions or server downtime on WhatsApp or Meta platforms beyond B2B&apos;s control.
                 </li>
               </ul>
             </section>
@@ -117,14 +117,14 @@ export default function RefundPage() {
               <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 space-y-2.5 text-xs text-slate-700">
                 <p>
                   <strong>Primary Refund / Payment Support Email:</strong>{' '}
-                  <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-bold underline">
-                    frndma.com@gmail.com
+                  <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-bold underline">
+                    B2B.com@gmail.com
                   </a>
                 </p>
                 <p><strong>Subject Line:</strong> Refund Request - [Your Registered Email / Username]</p>
                 <p className="font-semibold text-slate-800">Required Information to Include:</p>
                 <ul className="list-disc pl-5 space-y-1 text-slate-600">
-                  <li>Your registered username and email address on Frndma</li>
+                  <li>Your registered username and email address on B2B</li>
                   <li>Profile ID or name of the companion unlocked</li>
                   <li>Razorpay Payment ID (starts with <code>pay_...</code>) or Bank UPI UTR Number</li>
                   <li>Date and exact amount debited (e.g. ₹299 INR)</li>
@@ -151,9 +151,9 @@ export default function RefundPage() {
                 For immediate assistance with any payment discrepancy or billing concern, please connect with our support desk:
               </p>
               <div className="bg-slate-50 p-4 rounded-xl text-xs space-y-1 border border-slate-100">
-                <p><strong>Support Email:</strong> <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">frndma.com@gmail.com</a></p>
+                <p><strong>Support Email:</strong> <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">B2B.com@gmail.com</a></p>
                 <p><strong>Helpline:</strong> +91 90879 23641 (Mon – Sat, 9:00 AM – 8:00 PM IST)</p>
-                <p><strong>Platform:</strong> Frndma</p>
+                <p><strong>Platform:</strong> B2B</p>
               </div>
             </section>
           </div>

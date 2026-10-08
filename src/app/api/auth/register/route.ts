@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       user: newUser,
-      message: 'Account created successfully. Welcome to Frndma!'
+      message: 'Account created successfully. Welcome to B2B!'
     });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

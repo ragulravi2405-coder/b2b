@@ -5,8 +5,8 @@ import { ShieldCheck, Lock, Eye, FileText, CheckCircle2, Mail, AlertCircle, Data
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Privacy Policy | Frndma',
-  description: 'Privacy Policy for Frndma platform. Learn how we handle data protection, payment security via Razorpay, and user confidentiality.'
+  title: 'Privacy Policy | B2B',
+  description: 'Privacy Policy for B2B platform. Learn how we handle data protection, payment security via Razorpay, and user confidentiality.'
 };
 
 export default function PrivacyPage() {
@@ -25,10 +25,10 @@ export default function PrivacyPage() {
               Privacy Policy
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Effective Date: October 2026 • Platform: Frndma
+              Effective Date: October 2026 • Platform: B2B
             </p>
             <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
-              At <strong>Frndma</strong>, accessible from our official website, the privacy, confidentiality, and data protection of our users are of paramount importance. This Privacy Policy details the types of personal data we collect, why and how it is processed, and our strict administrative, technical, and cryptographic safeguards.
+              At <strong>B2B</strong>, accessible from our official website, the privacy, confidentiality, and data protection of our users are of paramount importance. This Privacy Policy details the types of personal data we collect, why and how it is processed, and our strict administrative, technical, and cryptographic safeguards.
             </p>
           </div>
 
@@ -38,10 +38,10 @@ export default function PrivacyPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">1. Consent &amp; Eligibility (Strictly 18+)</h2>
               <p>
-                By accessing, browsing, registering an account, or purchasing digital unlocks on Frndma, you signify your agreement to this Privacy Policy.
+                By accessing, browsing, registering an account, or purchasing digital unlocks on B2B, you signify your agreement to this Privacy Policy.
               </p>
               <p>
-                Frndma is strictly intended for <strong>consenting adults aged 18 years or older</strong>. We do not knowingly collect, request, or maintain personal records from minors under 18 years of age. If we determine that an account belongs to a minor, all associated records are permanently deleted immediately.
+                B2B is strictly intended for <strong>consenting adults aged 18 years or older</strong>. We do not knowingly collect, request, or maintain personal records from minors under 18 years of age. If we determine that an account belongs to a minor, all associated records are permanently deleted immediately.
               </p>
             </section>
 
@@ -75,10 +75,10 @@ export default function PrivacyPage() {
                 <span>3. Zero Storage of Sensitive Payment Credentials</span>
               </div>
               <p className="text-xs text-slate-700 leading-relaxed">
-                <strong>Frndma does NOT collect, capture, process, or store credit card numbers, debit card numbers, CVVs, net banking passwords, OTPs, or UPI PINs on its own servers.</strong>
+                <strong>B2B does NOT collect, capture, process, or store credit card numbers, debit card numbers, CVVs, net banking passwords, OTPs, or UPI PINs on its own servers.</strong>
               </p>
               <p className="text-xs text-slate-700 leading-relaxed">
-                All financial payments on Frndma are handled exclusively through our certified third-party payment gateway partner, <strong>Razorpay Software Private Limited</strong>. Payment credentials entered during checkout are submitted directly to Razorpay through their secure, encrypted PCI-DSS Level 1 compliant gateway. Frndma only receives cryptographic confirmation tokens verifying whether your transaction was authorized or captured.
+                All financial payments on B2B are handled exclusively through our certified third-party payment gateway partner, <strong>Razorpay Software Private Limited</strong>. Payment credentials entered during checkout are submitted directly to Razorpay through their secure, encrypted PCI-DSS Level 1 compliant gateway. B2B only receives cryptographic confirmation tokens verifying whether your transaction was authorized or captured.
               </p>
             </section>
 
@@ -118,7 +118,7 @@ export default function PrivacyPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">7. Data Sharing with Third-Party Service Providers</h2>
               <p>
-                Frndma <strong>never sells, rents, trades, or commercializes</strong> your personal data to advertising brokers or marketing firms.
+                B2B <strong>never sells, rents, trades, or commercializes</strong> your personal data to advertising brokers or marketing firms.
               </p>
               <p>We share minimal essential data only with trusted infrastructure providers subject to strict confidentiality obligations:</p>
               <ul className="list-disc pl-5 space-y-1">
@@ -153,8 +153,8 @@ export default function PrivacyPage() {
               </ul>
               <p className="pt-1">
                 To exercise any of these rights, email our privacy desk at{' '}
-                <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold hover:underline">
-                  frndma.com@gmail.com
+                <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold hover:underline">
+                  B2B.com@gmail.com
                 </a>.
               </p>
             </section>
@@ -167,10 +167,10 @@ export default function PrivacyPage() {
               </p>
               <div className="bg-slate-50 p-5 rounded-2xl text-xs text-slate-700 space-y-2 border border-slate-100">
                 <p><strong>Designation:</strong> Data Privacy &amp; Grievance Officer</p>
-                <p><strong>Platform:</strong> Frndma</p>
+                <p><strong>Platform:</strong> B2B</p>
                 <p><strong>Registered Entity:</strong> [Registered Entity: Legal Entity / Proprietorship Name]</p>
                 <p><strong>Operating Address:</strong> [Operating Address: Insert Physical Business Address, City, State, PIN - India]</p>
-                <p><strong>Primary Support Email:</strong> <a href="mailto:frndma.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">frndma.com@gmail.com</a></p>
+                <p><strong>Primary Support Email:</strong> <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">B2B.com@gmail.com</a></p>
                 <p><strong>Helpline:</strong> +91 90879 23641 (Mon – Sat, 9:00 AM – 8:00 PM IST)</p>
               </div>
             </section>

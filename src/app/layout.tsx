@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Frndma — Real Connections. Verified Profiles. | Private Adult Companion Platform",
-  description: "Frndma is a private, modern social connection and companion discovery platform for consenting adult Indian individuals. Meet verified profiles with safe, transparent on-demand access.",
-  keywords: ["Frndma", "Frndma Dating", "Adult Companion Discovery", "Verified Profiles India", "Private Social Platform"],
-  authors: [{ name: "Frndma Team" }],
+  title: "B2B — Real Connections. Verified Profiles. | Private Adult Companion Platform",
+  description: "B2B is a private, modern social connection and companion discovery platform for consenting adult Indian individuals. Meet verified profiles with safe, transparent on-demand access.",
+  keywords: ["B2B", "B2B Dating", "Adult Companion Discovery", "Verified Profiles India", "Private Social Platform"],
+  authors: [{ name: "B2B Team" }],
   icons: {
     icon: "/favicon.ico",
   },
