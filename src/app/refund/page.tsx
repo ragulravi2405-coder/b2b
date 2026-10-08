@@ -127,7 +127,7 @@ export default function RefundPage() {
                   <li>Your registered username and email address on B2B</li>
                   <li>Profile ID or name of the companion unlocked</li>
                   <li>Razorpay Payment ID (starts with <code>pay_...</code>) or Bank UPI UTR Number</li>
-                  <li>Date and exact amount debited (e.g. ₹299 INR)</li>
+                  <li>Date and exact amount debited (e.g. ₹499 INR)</li>
                   <li>Clear description of the issue encountered (with screenshot if applicable)</li>
                 </ul>
               </div>
@@ -152,7 +152,7 @@ export default function RefundPage() {
               </p>
               <div className="bg-slate-50 p-4 rounded-xl text-xs space-y-1 border border-slate-100">
                 <p><strong>Support Email:</strong> <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">B2B.com@gmail.com</a></p>
-                <p><strong>Helpline:</strong> +91 90879 23641 (Mon – Sat, 9:00 AM – 8:00 PM IST)</p>
+                <p><strong>Support Hours:</strong> Mon – Sat, 9:00 AM – 8:00 PM IST</p>
                 <p><strong>Platform:</strong> B2B</p>
               </div>
             </section>

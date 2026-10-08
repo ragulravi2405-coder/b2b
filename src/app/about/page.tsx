@@ -136,7 +136,7 @@ export default function AboutPage() {
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5">
                   <span className="w-6 h-6 rounded-full bg-[#6C3BFF] text-white text-xs font-bold flex items-center justify-center">3</span>
                   <h4 className="font-bold text-slate-900 text-xs sm:text-sm">Unlock Direct WhatsApp</h4>
-                  <p className="text-xs text-slate-500">Choose an individual profile (₹299 INR) or activate a VIP bundle (₹1,499 INR) through our secure Razorpay gateway.</p>
+                  <p className="text-xs text-slate-500">Choose an individual profile (₹499 INR) or activate a VIP bundle (₹1,499 INR) through our secure Razorpay gateway.</p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5">
@@ -154,7 +154,7 @@ export default function AboutPage() {
                 B2B operates with complete financial transparency. We do not use hidden recurring subscriptions or unexpected auto-debits.
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
-                <li><strong>Clear INR Pricing:</strong> Individual contact unlocks are priced at <strong>₹299 INR</strong> one-time, and VIP passes at <strong>₹1,499 INR</strong>. All prices include applicable taxes.</li>
+                <li><strong>Clear INR Pricing:</strong> Individual contact unlocks are priced at <strong>₹499 INR</strong> one-time, and VIP passes at <strong>₹1,499 INR</strong>. All prices include applicable taxes.</li>
                 <li><strong>Razorpay Gateway Integration:</strong> All transactions are processed through Razorpay Software Private Limited, supporting UPI (Google Pay, PhonePe, Paytm, BHIM), Debit/Credit Cards (Visa, Mastercard, RuPay), and Net Banking.</li>
                 <li><strong>Zero Credential Storage:</strong> B2B does NOT collect or store your card numbers, CVV, OTP, or UPI PIN on our servers. All sensitive credentials are handled by Razorpay&apos;s encrypted checkout flow.</li>
                 <li><strong>Digital Delivery:</strong> Contact access is unlocked digitally and immediately upon payment confirmation.</li>

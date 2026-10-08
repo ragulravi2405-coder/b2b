@@ -118,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Crown className="w-3.5 h-3.5 text-[#E94B99]" />
             <span className="hidden xs:inline">Plans</span>
-            <span className="text-[#17152A] font-extrabold">₹299</span>
+            <span className="text-[#17152A] font-extrabold">₹499</span>
           </button>
 
           {/* User Profile / Auth State */}

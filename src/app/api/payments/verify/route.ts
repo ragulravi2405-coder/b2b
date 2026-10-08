@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
       }, { status: 404 });
     }
 
-    const expectedPrice = isSub ? 1499 : (targetProfile?.unlockPrice ?? 299);
+    const expectedPrice = isSub ? 1499 : (targetProfile?.unlockPrice ?? 499);
 
     // 1. DIRECT RAZORPAY.ME LINK CONFIRMATION FLOW (No manual transaction ID entry needed)
     if (confirmLinkPayment || method === 'razorpay_link' || method === 'razorpay_me') {

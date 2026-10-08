@@ -93,7 +93,7 @@ export const UserProfileView: React.FC<UserProfileViewProps> = ({
             <span className="text-[10px] font-bold uppercase tracking-wider text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full">
               Contact Unlock System
             </span>
-            <h4 className="text-sm font-bold text-slate-900 mt-1">₹299 WhatsApp Unlocks</h4>
+            <h4 className="text-sm font-bold text-slate-900 mt-1">₹499 WhatsApp Unlocks</h4>
             <p className="text-xs text-slate-500">
               Direct access to connect externally with verified men on WhatsApp.
             </p>

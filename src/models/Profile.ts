@@ -22,7 +22,7 @@ const ProfileSchema = new Schema<ProfileDocument>(
     lastActive: { type: String, default: 'Active now' },
     whatsappNumber: { type: String },
     isBlocked: { type: Boolean, default: false },
-    unlockPrice: { type: Number, default: 299 }
+    unlockPrice: { type: Number, default: 499 }
   },
   {
     timestamps: true

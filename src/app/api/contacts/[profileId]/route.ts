@@ -11,7 +11,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ prof
     const isUnlocked = db.isContactUnlocked(userId, profileId);
 
     const profile = db.getProfileById(profileId);
-    const amount = profile?.unlockPrice ?? 299;
+    const amount = profile?.unlockPrice ?? 499;
 
     if (!isUnlocked) {
       return NextResponse.json({

@@ -28,7 +28,7 @@
       "isOnline": true,
       "lastActive": "Active now",
       "whatsappNumber": "919087923641",
-      "unlockPrice": 299
+      "unlockPrice": 499
     },
     {
       "id": "male-south-2",
@@ -87,7 +87,7 @@
       "isOnline": true,
       "lastActive": "Active now",
       "whatsappNumber": "919087923641",
-      "unlockPrice": 299
+      "unlockPrice": 499
     },
     {
       "id": "male-1",
@@ -408,7 +408,7 @@
       "isOnline": true,
       "lastActive": "Active now",
       "whatsappNumber": "919087923641",
-      "unlockPrice": 299
+      "unlockPrice": 499
     },
     {
       "id": "male-south-5",
@@ -437,7 +437,7 @@
       "isOnline": false,
       "lastActive": "20m ago",
       "whatsappNumber": "919087923641",
-      "unlockPrice": 299
+      "unlockPrice": 499
     },
     {
       "id": "male-south-6",
@@ -466,7 +466,7 @@
       "isOnline": true,
       "lastActive": "Active now",
       "whatsappNumber": "919087923641",
-      "unlockPrice": 299
+      "unlockPrice": 499
     }
   ],
   "users": [],

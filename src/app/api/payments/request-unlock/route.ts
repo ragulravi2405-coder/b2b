@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     }
 
     const profile = db.getProfileById(profileId);
-    const targetAmount = typeof amount === 'number' ? amount : (profile?.unlockPrice ?? 299);
+    const targetAmount = typeof amount === 'number' ? amount : (profile?.unlockPrice ?? 499);
 
     // Create a pending unlock request for verification
     const pendingTx = db.createPendingUnlockRequest(userId, profileId, targetAmount);

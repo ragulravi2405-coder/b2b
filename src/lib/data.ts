@@ -19,7 +19,7 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     isOnline: true,
     lastActive: 'Active now',
     whatsappNumber: '919087923641',
-    unlockPrice: 299
+    unlockPrice: 499
   },
   {
     id: 'male-south-2',
@@ -59,7 +59,7 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     isOnline: true,
     lastActive: 'Active now',
     whatsappNumber: '919087923641',
-    unlockPrice: 299
+    unlockPrice: 499
   },
   {
     id: 'male-1',
@@ -279,7 +279,7 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     isOnline: true,
     lastActive: 'Active now',
     whatsappNumber: '919087923641',
-    unlockPrice: 299
+    unlockPrice: 499
   },
   {
     id: 'male-south-5',
@@ -299,7 +299,7 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     isOnline: false,
     lastActive: '20m ago',
     whatsappNumber: '919087923641',
-    unlockPrice: 299
+    unlockPrice: 499
   },
   {
     id: 'male-south-6',
@@ -319,7 +319,7 @@ export const INITIAL_DEMO_PROFILES: UserProfile[] = [
     isOnline: true,
     lastActive: 'Active now',
     whatsappNumber: '919087923641',
-    unlockPrice: 299
+    unlockPrice: 499
   }
 ];
 

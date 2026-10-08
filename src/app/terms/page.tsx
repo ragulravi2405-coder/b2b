@@ -106,7 +106,7 @@ export default function TermsPage() {
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
                 <div className="flex items-center justify-between text-slate-900 font-bold">
                   <span>Individual Contact Unlock:</span>
-                  <span className="text-sm font-black text-[#6C3BFF]">₹299 INR (one-time fee)</span>
+                  <span className="text-sm font-black text-[#6C3BFF]">₹499 INR (one-time fee)</span>
                 </div>
                 <p className="text-xs text-slate-600">
                   Unlocks verified direct WhatsApp access for an individual companion.
@@ -184,7 +184,7 @@ export default function TermsPage() {
               </p>
               <div className="bg-slate-50 p-4 rounded-xl text-xs space-y-1 border border-slate-100">
                 <p><strong>Primary Support Email:</strong> <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">B2B.com@gmail.com</a></p>
-                <p><strong>Support Helpline:</strong> +91 90879 23641 (Mon – Sat, 9:00 AM – 8:00 PM IST)</p>
+                <p><strong>Support Availability:</strong> Mon – Sat, 9:00 AM – 8:00 PM IST</p>
                 <p><strong>Operating Address:</strong> [Operating Address: Insert Physical Business Address, City, State, PIN - India]</p>
               </div>
             </section>

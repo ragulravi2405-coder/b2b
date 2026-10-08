@@ -188,7 +188,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
               onClick={() => onOpenUnlockPayment(activeProfile)}
               className="text-[#6C3BFF] font-bold hover:underline"
             >
-              Get WhatsApp (₹{activeProfile.unlockPrice ?? 299})
+              Get WhatsApp (₹{activeProfile.unlockPrice ?? 499})
             </button>
           )}
         </div>

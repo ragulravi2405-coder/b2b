@@ -46,7 +46,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
   const [paymentReference, setPaymentReference] = useState<string | null>(null);
   const [openedRazorpay, setOpenedRazorpay] = useState(false);
 
-  const unlockAmount = profile?.unlockPrice ?? 299;
+  const unlockAmount = profile?.unlockPrice ?? 499;
   const razorpayPaymentLink = 'https://razorpay.me/@ravirahul601';
 
   // Check if contact is already unlocked when opening
@@ -82,23 +82,19 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
     };
 
     checkUnlocked();
-  }, [isOpen, profile, currentUser, onUnlockedSuccess]);
+  }, [isOpen, profile, currentUser, onUnlockedSuccess, isAlreadyUnlocked, unlockedWhatsappUrl]);
 
   if (!isOpen || !profile) return null;
 
-  // Step 1: Open Razorpay Payment Link
-  const handleOpenRazorpayLink = () => {
-    window.open(razorpayPaymentLink, '_blank', 'noopener,noreferrer');
-    setOpenedRazorpay(true);
-  };
-
-  // Step 2: Confirm Payment & Unlock Contact Directly (No manual transaction ID needed)
-  const handleConfirmPaymentUnlock = async () => {
+  // Pay on Razorpay & Unlock Contact in one seamless action
+  const handlePayAndUnlock = async () => {
     if (!currentUser) {
       if (onOpenAuth) onOpenAuth();
       return;
     }
 
+    // Open Razorpay payment link
+    window.open(razorpayPaymentLink, '_blank', 'noopener,noreferrer');
     setLoading(true);
     setError(null);
 
@@ -141,7 +137,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
       onUnlockedSuccess(profile.id, finalUrl);
     } catch (err: any) {
       console.error('Unlock error:', err);
-      setError(err.message || 'Could not verify payment. Please try again or contact support.');
+      setError(err.message || 'Could not verify payment. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -232,7 +228,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
               <div className="text-center mb-4">
                 <div className="relative w-20 h-20 mx-auto mb-2 rounded-2xl overflow-hidden shadow-md border-2 border-purple-200">
                   <Image
-                    src={profile.avatar || '/profiles/cartoon-car.jpg'}
+                    src={profile.avatar || '/profiles/south-indian-1.jpg'}
                     alt={profile.username}
                     fill
                     className="object-cover"
@@ -263,14 +259,14 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-slate-600">Direct WhatsApp:</span>
-                  <span className="font-semibold text-slate-900">+91 90879 23641</span>
+                  <span className="font-semibold text-emerald-700">Verified (+91 90879 ••••••)</span>
                 </div>
                 <div className="flex justify-between items-center pt-2 border-t border-slate-200 text-sm">
                   <span className="font-bold text-slate-900">Unlock Fee:</span>
                   <span className="font-black text-xl text-[#6C3BFF]">₹{unlockAmount} INR</span>
                 </div>
                 <p className="text-[10px] text-slate-400">
-                  One-time transparent fee. Lifetime unlocked access on B2B.
+                  One-time fee. Instant direct WhatsApp chat access.
                 </p>
               </div>
 
@@ -285,7 +281,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
                 </div>
               )}
 
-              {/* Two-Step Seamless Razorpay Flow */}
+              {/* Single-Click Seamless Razorpay Flow */}
               {!currentUser ? (
                 <div className="p-4 rounded-2xl bg-purple-50/80 border border-purple-200 text-center space-y-3 mb-2">
                   <div className="w-10 h-10 rounded-full bg-purple-100 text-[#6C3BFF] flex items-center justify-center mx-auto">
@@ -307,19 +303,29 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {/* Step 1: Open Razorpay Link */}
+                  {/* Single Action: Pay & Unlock Contact */}
                   <button
                     type="button"
-                    onClick={handleOpenRazorpayLink}
-                    className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#6C3BFF] to-[#A855F7] hover:opacity-95 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-purple-200 transition-all active:scale-[0.98] cursor-pointer"
+                    onClick={handlePayAndUnlock}
+                    disabled={loading}
+                    className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#6C3BFF] via-[#8B5CF6] to-[#00C496] hover:opacity-95 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-purple-200 transition-all active:scale-[0.98] disabled:opacity-60 cursor-pointer"
                   >
-                    <CreditCard className="w-4 h-4" />
-                    <span>1. Pay ₹{unlockAmount} on Razorpay / UPI</span>
-                    <ExternalLink className="w-4 h-4 opacity-80" />
+                    {loading ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>Unlocking Contact...</span>
+                      </div>
+                    ) : (
+                      <>
+                        <CreditCard className="w-4 h-4" />
+                        <span>Pay ₹{unlockAmount} &amp; Unlock Contact</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
 
                   <div className="p-3 rounded-xl bg-purple-50/60 border border-purple-100 text-center text-[11px] text-purple-900">
-                    <span>Razorpay Link: </span>
+                    <span>Official Razorpay Payment: </span>
                     <a
                       href={razorpayPaymentLink}
                       target="_blank"
@@ -333,29 +339,8 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
                     </span>
                   </div>
 
-                  {/* Step 2: Instant Confirm & Unlock Button */}
-                  <button
-                    type="button"
-                    onClick={handleConfirmPaymentUnlock}
-                    disabled={loading}
-                    className="w-full py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-emerald-200 transition-all active:scale-[0.98] disabled:opacity-60 cursor-pointer"
-                  >
-                    {loading ? (
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Verifying ₹{unlockAmount} Payment...</span>
-                      </div>
-                    ) : (
-                      <>
-                        <ShieldCheck className="w-4 h-4" />
-                        <span>2. I Have Paid ₹{unlockAmount} — Unlock Contact</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-
                   <p className="text-[10px] text-slate-400 text-center leading-relaxed">
-                    🔒 Direct verification. No manual transaction ID entry needed. Instantly reveals verified WhatsApp number +91 90879 23641.
+                    🔒 Direct instant access. Click to pay on Razorpay and chat immediately on WhatsApp.
                   </p>
                 </div>
               )}

@@ -221,7 +221,7 @@ export const ProfileDetailsModal: React.FC<ProfileDetailsModalProps> = ({
                         <Lock className="w-4 h-4 text-[#6C3BFF]" />
                         <span className="font-bold text-xs text-slate-900">Contact Details Locked</span>
                       </div>
-                      <span className="text-xs font-extrabold text-[#6C3BFF]">₹{profile.unlockPrice ?? 299}</span>
+                      <span className="text-xs font-extrabold text-[#6C3BFF]">₹{profile.unlockPrice ?? 499}</span>
                     </div>
                     <p className="text-[11px] text-slate-500 mb-3">
                       Unlock {profile.username}&apos;s verified WhatsApp details to continue connecting outside B2B.
@@ -231,7 +231,7 @@ export const ProfileDetailsModal: React.FC<ProfileDetailsModalProps> = ({
                       className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#6C3BFF] to-[#E94B99] hover:opacity-95 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all"
                     >
                       <Lock className="w-3.5 h-3.5" />
-                      Unlock Contact — ₹{profile.unlockPrice ?? 299}
+                      Unlock Contact — ₹{profile.unlockPrice ?? 499}
                     </button>
                   </div>
                 )}

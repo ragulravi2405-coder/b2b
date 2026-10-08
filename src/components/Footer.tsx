@@ -135,10 +135,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenIdentityModal }) => {
 
               <div className="pt-1">
                 <span className="text-[11px] text-slate-400 block flex items-center gap-1">
-                  <Phone className="w-3 h-3 text-slate-400" />
-                  Support Helpline:
+                  <Mail className="w-3 h-3 text-slate-400" />
+                  Support Desk:
                 </span>
-                <span className="font-semibold text-slate-800">+91 90879 23641</span>
+                <a href="mailto:B2B.com@gmail.com" className="font-semibold text-slate-800 hover:text-[#6C3BFF] underline">
+                  B2B.com@gmail.com
+                </a>
               </div>
 
               <div>

@@ -304,7 +304,7 @@ export const db = {
   },
 
   // Razorpay Payments & Contact Unlocks
-  createPaymentOrder(userId: string, profileId: string, amount: number = 299) {
+  createPaymentOrder(userId: string, profileId: string, amount: number = 499) {
     const state = getState();
     const profile = state.profiles.find(p => p.id === profileId);
     if (!profile) throw new Error('Profile not found');
@@ -335,7 +335,7 @@ export const db = {
     };
   },
 
-  createPendingUnlockRequest(userId: string, profileId: string, amount: number = 299) {
+  createPendingUnlockRequest(userId: string, profileId: string, amount: number = 499) {
     const state = getState();
     const profile = state.profiles.find(p => p.id === profileId);
     if (!profile) throw new Error('Profile not found');
@@ -400,7 +400,7 @@ export const db = {
       profileName: profile.username,
       razorpayOrderId: orderId,
       razorpayPaymentId: paymentId,
-      amount: profile.unlockPrice ?? 299,
+      amount: profile.unlockPrice ?? 499,
       status: 'verified' as const,
       createdAt: new Date().toISOString()
     };

@@ -49,7 +49,7 @@ export default function DeliveryPolicyPage() {
             <section className="space-y-3">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">2. How Digital Delivery Works</h2>
               <p>
-                When you make a payment on B2B (whether for an individual contact unlock at ₹299 INR or a VIP pass at ₹1,499 INR):
+                When you make a payment on B2B (whether for an individual contact unlock at ₹499 INR or a VIP pass at ₹1,499 INR):
               </p>
               <ul className="list-disc pl-5 space-y-2">
                 <li>
@@ -94,7 +94,7 @@ export default function DeliveryPolicyPage() {
               <p>For any questions regarding service fulfillment or order status, contact:</p>
               <div className="bg-slate-50 p-4 rounded-xl text-xs space-y-1 border border-slate-100">
                 <p><strong>Support Email:</strong> <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">B2B.com@gmail.com</a></p>
-                <p><strong>Support Helpline:</strong> +91 90879 23641 (Mon – Sat, 9:00 AM – 8:00 PM IST)</p>
+                <p><strong>Support Availability:</strong> Mon – Sat, 9:00 AM – 8:00 PM IST</p>
                 <p><strong>Platform:</strong> B2B</p>
               </div>
             </section>

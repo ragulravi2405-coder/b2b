@@ -122,9 +122,9 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onS
               </div>
             </div>
             <div className="mb-3">
-              <span className="text-3xl font-black text-slate-900">₹299</span>
+              <span className="text-3xl font-black text-slate-900">₹499</span>
               <span className="text-xs text-slate-400 ml-1 font-semibold">/ contact</span>
-              <div className="text-[11px] text-purple-600 font-semibold mt-0.5">Models: ₹499 / contact</div>
+              <div className="text-[11px] text-[#00C496] font-semibold mt-0.5">Flat ₹499 for all verified contacts</div>
             </div>
             <ul className="space-y-2 text-xs text-slate-600">
               <li className="flex items-center gap-2">
@@ -202,7 +202,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onS
               <span>Explore Profiles &amp; Unlock On-Demand</span>
             </button>
             <p className="text-[11px] text-slate-400 text-center">
-              Pay ₹299 or ₹499 only when you choose to unlock a companion.
+              Pay ₹499 only when you choose to unlock a companion.
             </p>
           </div>
         ) : (

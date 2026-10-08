@@ -98,7 +98,7 @@ export default function PricingPage() {
                 </div>
 
                 <div className="flex items-baseline gap-1.5 pt-1">
-                  <span className="text-4xl font-black text-slate-900">₹299</span>
+                  <span className="text-4xl font-black text-slate-900">₹499</span>
                   <span className="text-xs text-slate-500 font-semibold">INR (All Taxes Included)</span>
                 </div>
 
@@ -121,7 +121,7 @@ export default function PricingPage() {
                   </div>
                   <div className="flex items-center gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#00C496] flex-shrink-0" />
-                    <span>18% GST and all applicable charges included in ₹299</span>
+                    <span>18% GST and all applicable charges included in ₹499</span>
                   </div>
                   <div className="flex items-center gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#00C496] flex-shrink-0" />
@@ -329,7 +329,7 @@ export default function PricingPage() {
               </div>
               <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
                 <span className="font-bold text-slate-800 text-xs block">Customer Support &amp; Disputes</span>
-                <span className="text-xs text-slate-600">Email: <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] underline">B2B.com@gmail.com</a> | Helpline: +91 90879 23641</span>
+                <span className="text-xs text-slate-600">Email: <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] underline">B2B.com@gmail.com</a> | Active Mon – Sat (9 AM – 8 PM IST)</span>
               </div>
             </div>
 

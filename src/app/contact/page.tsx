@@ -126,16 +126,18 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Phone / Helpline Card */}
+              {/* Online Help Desk Card */}
               <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-emerald-50 text-[#00C496] flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-5 h-5" />
+                <div className="w-11 h-11 rounded-xl bg-teal-50 text-[#00C496] flex items-center justify-center flex-shrink-0">
+                  <HelpCircle className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Support Helpline</h3>
-                  <p className="text-base font-bold text-slate-900 mt-0.5">+91 90879 23641</p>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Online Help Desk</h3>
+                  <a href="mailto:B2B.com@gmail.com" className="text-base font-bold text-slate-900 hover:text-[#6C3BFF] mt-0.5 block">
+                    B2B.com@gmail.com
+                  </a>
                   <p className="text-[11px] text-slate-500 mt-1">
-                    Available during operating business hours for direct inquiry assistance.
+                    Send us your query or ticket. Fast response for unlock and billing queries.
                   </p>
                 </div>
               </div>

@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     }
 
     const rawProfile = db.getRawProfileById(profileId);
-    const unlockAmount = rawProfile?.unlockPrice ?? 299;
+    const unlockAmount = rawProfile?.unlockPrice ?? 499;
     const orderData = db.createPaymentOrder(userId, profileId, unlockAmount);
 
     // If Razorpay API credentials are configured, create order via Razorpay API

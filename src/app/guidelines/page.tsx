@@ -95,7 +95,7 @@ export default function GuidelinesPage() {
             <section className="space-y-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900">5. Financial Safety &amp; Anti-Scam Practices</h2>
               <p>
-                All legitimate platform unlock fees on B2B are handled exclusively through our official Razorpay checkout (₹299 INR / ₹1,499 INR).
+                All legitimate platform unlock fees on B2B are handled exclusively through our official Razorpay checkout (₹499 INR / ₹1,499 INR).
               </p>
               <ul className="list-disc pl-5 space-y-1">
                 <li>Never send direct money transfers, cash deposits, gift cards, or cryptocurrency to strangers on messaging apps.</li>

@@ -246,7 +246,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onClose }) => {
               {stats?.contactUnlocks}
             </span>
             <span className="text-[11px] font-bold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">
-              ₹299 ea
+              ₹499 ea
             </span>
           </div>
         </div>
@@ -364,7 +364,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onClose }) => {
               <span className="text-[10px] font-bold uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full">
                 Monetization Metric
               </span>
-              <h4 className="text-lg font-black mt-2">₹299 WhatsApp Unlock</h4>
+              <h4 className="text-lg font-black mt-2">₹499 WhatsApp Unlock</h4>
               <p className="text-xs text-purple-100 mt-1">
                 416+ men have unlocked external contact privileges, generating high-margin direct revenue without recurring churn.
               </p>

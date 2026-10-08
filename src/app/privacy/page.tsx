@@ -89,7 +89,7 @@ export default function PrivacyPage() {
                 <span>4. Confidentiality of WhatsApp Phone Numbers</span>
               </div>
               <p className="text-xs text-slate-700">
-                To prevent unsolicited harassment, commercial scraping, and privacy invasion, the direct WhatsApp contact numbers of featured models and companions are protected behind encrypted database safeguards. Contact numbers are never exposed publicly on profiles or search feeds. A contact number is only decrypted and provided to a user after a verified, authenticated payment (₹299 INR or VIP pass) is confirmed via Razorpay.
+                To prevent unsolicited harassment, commercial scraping, and privacy invasion, the direct WhatsApp contact numbers of featured models and companions are protected behind encrypted database safeguards. Contact numbers are never exposed publicly on profiles or search feeds. A contact number is only decrypted and provided to a user after a verified, authenticated payment (₹499 INR or VIP pass) is confirmed via Razorpay.
               </p>
             </section>
 
@@ -171,7 +171,7 @@ export default function PrivacyPage() {
                 <p><strong>Registered Entity:</strong> [Registered Entity: Legal Entity / Proprietorship Name]</p>
                 <p><strong>Operating Address:</strong> [Operating Address: Insert Physical Business Address, City, State, PIN - India]</p>
                 <p><strong>Primary Support Email:</strong> <a href="mailto:B2B.com@gmail.com" className="text-[#6C3BFF] font-semibold underline">B2B.com@gmail.com</a></p>
-                <p><strong>Helpline:</strong> +91 90879 23641 (Mon – Sat, 9:00 AM – 8:00 PM IST)</p>
+                <p><strong>Support Availability:</strong> Mon – Sat, 9:00 AM – 8:00 PM IST</p>
               </div>
             </section>
           </div>
