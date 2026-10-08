@@ -98,11 +98,9 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
         return;
       }
 
-      const keyId = orderData.order?.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_Tk6HPEGS2HVr0h';
-
-      if (!keyId || !keyId.startsWith('rzp_')) {
-        window.open('https://razorpay.me/@ravirahul601', '_blank');
-        throw new Error('Razorpay API Key ID is required to enable automated popup checkout.');
+      let keyId = orderData.order?.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_TlJDgRJz0sQAhB';
+      if (!keyId || keyId.startsWith('rzp_test_')) {
+        keyId = 'rzp_live_TlJDgRJz0sQAhB';
       }
 
       // 3. Open official Razorpay Popup Checkout
@@ -112,7 +110,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
         currency: 'INR',
         name: 'Frndma',
         description: `Unlock ${profile.username}'s Contact`,
-        order_id: orderData.order?.orderId?.startsWith('order_') ? orderData.order.orderId : undefined,
+        order_id: (orderData.order?.orderId && !orderData.order.orderId.startsWith('order_frndma_')) ? orderData.order.orderId : undefined,
         handler: async function (response: any) {
           setLoading(true);
           try {

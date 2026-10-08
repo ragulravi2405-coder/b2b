@@ -328,7 +328,9 @@ export const db = {
       orderId,
       amount,
       currency: 'INR',
-      keyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID || 'rzp_live_Tk6HPEGS2HVr0h',
+      keyId: (process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID && !process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID.startsWith('rzp_test_'))
+        ? process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
+        : 'rzp_live_TlJDgRJz0sQAhB',
       profileName: profile.username
     };
   },
