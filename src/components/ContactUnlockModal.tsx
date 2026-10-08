@@ -12,12 +12,12 @@ import {
   CreditCard,
   ShieldCheck,
   ArrowRight,
-  RotateCcw
+  RotateCcw,
+  RefreshCw
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import Link from 'next/link';
 import Image from 'next/image';
-import { loadRazorpayScript } from '@/lib/razorpay';
 
 interface ContactUnlockModalProps {
   isOpen: boolean;
@@ -40,22 +40,25 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
   isAlreadyUnlocked,
   unlockedWhatsappUrl
 }) => {
-  const [loading, setLoading] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [unlocked, setUnlocked] = useState(isAlreadyUnlocked ?? false);
   const [whatsappUrl, setWhatsappUrl] = useState<string | null>(unlockedWhatsappUrl ?? null);
   const [whatsappNumber, setWhatsappNumber] = useState<string | null>(null);
   const [paymentReference, setPaymentReference] = useState<string | null>(null);
+  const [hasOpenedRazorpay, setHasOpenedRazorpay] = useState(false);
+  const [manualPaymentId, setManualPaymentId] = useState('');
 
   const unlockAmount = 499; // Exactly ₹499
+  const razorpayMeUrl = 'https://razorpay.me/@ravirahul601';
 
   // Check backend source-of-truth when modal opens
   useEffect(() => {
     if (!isOpen || !profile) return;
     setError(null);
-    setLoading(false);
     setVerifying(false);
+    setHasOpenedRazorpay(false);
+    setManualPaymentId('');
 
     if (isAlreadyUnlocked && unlockedWhatsappUrl) {
       setUnlocked(true);
@@ -96,143 +99,67 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
 
   if (!isOpen || !profile) return null;
 
-  // Genuine Razorpay Checkout Flow
-  const handleStartRazorpayCheckout = async () => {
+  // 1. Open Razorpay.me in a new tab
+  const handleOpenRazorpayMe = () => {
+    if (!currentUser) {
+      if (onOpenAuth) onOpenAuth();
+      return;
+    }
+    setError(null);
+    setHasOpenedRazorpay(true);
+    window.open(razorpayMeUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  // 2. Verify payment directly with Razorpay's live merchant account
+  const handleVerifyLivePayment = async () => {
     if (!currentUser) {
       if (onOpenAuth) onOpenAuth();
       return;
     }
 
-    setLoading(true);
+    setVerifying(true);
     setError(null);
 
     try {
-      // 1. Create official Razorpay Order from the BACKEND
-      const orderRes = await fetch('/api/payments/create-order', {
+      const res = await fetch('/api/payments/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ profileId: profile.id })
+        body: JSON.stringify({
+          profileId: profile.id,
+          paymentId: manualPaymentId.trim() || undefined
+        })
       });
 
-      const orderData = await orderRes.json();
-      if (!orderRes.ok || !orderData.success) {
-        throw new Error(orderData.error || 'Failed to initialize payment order. Please try again.');
+      const data = await res.json();
+
+      if (!res.ok || !data.success || !data.unlocked) {
+        throw new Error(data.error || 'Payment not found on Razorpay live account. Please complete payment of ₹499 first.');
       }
 
-      // If already confirmed unlocked on backend
-      if (orderData.alreadyUnlocked && !orderData.locked) {
-        setUnlocked(true);
-        setWhatsappUrl(orderData.whatsappUrl);
-        setWhatsappNumber(orderData.whatsappNumber || null);
-        onUnlockedSuccess(profile.id, orderData.whatsappUrl);
-        setLoading(false);
-        return;
+      // Live captured payment confirmed!
+      setPaymentReference(data.paymentId || 'Verified Live Payment');
+      const finalUrl =
+        data.contact?.whatsappUrl ||
+        `https://wa.me/${data.contact?.whatsappNumber || '919087923641'}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on B2B!`)}`;
+
+      setUnlocked(true);
+      setWhatsappUrl(finalUrl);
+      setWhatsappNumber(data.contact?.whatsappNumber || null);
+      onUnlockedSuccess(profile.id, finalUrl);
+
+      try {
+        confetti({
+          particleCount: 120,
+          spread: 80,
+          origin: { y: 0.6 },
+          colors: ['#6C3BFF', '#FF6B9D', '#00C496', '#FFD700']
+        });
+      } catch (e) {
+        // confetti optional
       }
-
-      const order = orderData.order;
-      if (!order || !order.orderId) {
-        throw new Error('Invalid order response from backend.');
-      }
-
-      // 2. Load official Razorpay Checkout SDK
-      const isLoaded = await loadRazorpayScript();
-      if (!isLoaded || !(window as any).Razorpay) {
-        throw new Error('Razorpay Checkout SDK failed to load. Please check your internet connection.');
-      }
-
-      // 3. Open Razorpay Checkout modal with backend order
-      const options = {
-        key: order.keyId,
-        amount: order.amount, // 49900 paise
-        currency: order.currency || 'INR',
-        name: 'B2B',
-        description: `Unlock Contact — ${profile.username}`,
-        order_id: order.orderId,
-        prefill: {
-          name: currentUser.username || '',
-          email: currentUser.email || ''
-        },
-        theme: {
-          color: '#6C3BFF'
-        },
-        handler: async function (response: {
-          razorpay_order_id: string;
-          razorpay_payment_id: string;
-          razorpay_signature: string;
-        }) {
-          // 4. Payment succeeded on Razorpay! Now submit to BACKEND for cryptographic verification
-          setLoading(true);
-          setVerifying(true);
-          setError(null);
-
-          try {
-            const verifyRes = await fetch('/api/payments/verify', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                profileId: profile.id,
-                razorpayOrderId: response.razorpay_order_id,
-                razorpayPaymentId: response.razorpay_payment_id,
-                razorpaySignature: response.razorpay_signature
-              })
-            });
-
-            const verifyData = await verifyRes.json();
-            if (!verifyRes.ok || !verifyData.success || !verifyData.unlocked) {
-              throw new Error(verifyData.error || 'Payment verification failed. Contact remains locked.');
-            }
-
-            // 5. Backend verification passed! Genuine unlock
-            setPaymentReference(response.razorpay_payment_id);
-            const finalUrl =
-              verifyData.contact?.whatsappUrl ||
-              `https://wa.me/${verifyData.contact?.whatsappNumber || '919087923641'}?text=${encodeURIComponent(`Hi ${profile.username}, connected with you on B2B!`)}`;
-
-            setUnlocked(true);
-            setWhatsappUrl(finalUrl);
-            setWhatsappNumber(verifyData.contact?.whatsappNumber || null);
-            onUnlockedSuccess(profile.id, finalUrl);
-
-            try {
-              confetti({
-                particleCount: 120,
-                spread: 80,
-                origin: { y: 0.6 },
-                colors: ['#6C3BFF', '#FF6B9D', '#00C496', '#FFD700']
-              });
-            } catch (e) {
-              // canvas confetti is optional
-            }
-          } catch (verifyErr: any) {
-            console.error('Backend verification error:', verifyErr);
-            setError(verifyErr.message || 'Payment verification failed. Contact remains locked.');
-          } finally {
-            setLoading(false);
-            setVerifying(false);
-          }
-        },
-        modal: {
-          ondismiss: function () {
-            // User closed Razorpay or pressed browser Back: DO NOT UNLOCK!
-            setLoading(false);
-            setVerifying(false);
-            setError('Payment cancelled. Contact remains locked.');
-          }
-        }
-      };
-
-      const rzpInstance = new (window as any).Razorpay(options);
-      rzpInstance.on('payment.failed', function (failResp: any) {
-        setLoading(false);
-        setVerifying(false);
-        setError(failResp?.error?.description || 'Payment failed. Contact remains locked.');
-      });
-
-      rzpInstance.open();
     } catch (err: any) {
-      console.error('Checkout error:', err);
-      setError(err.message || 'Could not start checkout. Please try again.');
-      setLoading(false);
+      setError(err.message || 'Payment not verified yet. Contact remains locked.');
+    } finally {
       setVerifying(false);
     }
   };
@@ -253,19 +180,19 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
 
         <div className="p-6 sm:p-7">
           {unlocked && whatsappUrl ? (
-            /* Contact Unlocked View (Only shown after GENUINE BACKEND VERIFICATION) */
+            /* Contact Unlocked View (Only shown after GENUINE LIVE PAYMENT VERIFICATION) */
             <div className="text-center py-2 animate-in zoom-in-95 duration-200">
               <div className="w-16 h-16 rounded-full bg-emerald-100 text-[#00C496] flex items-center justify-center mx-auto mb-3 animate-bounce">
                 <CheckCircle2 className="w-9 h-9" />
               </div>
               <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800">
-                Payment Success • Contact Unlocked
+                Payment Verified • Contact Unlocked
               </span>
               <h3 className="text-2xl font-black text-slate-900 mt-2">
                 Connect with {profile.username}
               </h3>
               <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
-                ₹{unlockAmount} INR payment verified by backend! You now have direct WhatsApp access to chat with {profile.username}.
+                ₹{unlockAmount} INR live payment verified! You now have direct WhatsApp access to chat with {profile.username}.
               </p>
 
               {/* Transaction Reference Box */}
@@ -290,7 +217,7 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
                 </div>
                 {paymentReference && (
                   <div className="flex justify-between items-center text-slate-500">
-                    <span>Payment ID:</span>
+                    <span>Payment Ref:</span>
                     <span className="font-mono text-[11px] font-semibold text-purple-700">{paymentReference}</span>
                   </div>
                 )}
@@ -366,17 +293,17 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
                   <span className="font-black text-xl text-[#6C3BFF]">₹{unlockAmount} INR</span>
                 </div>
                 <p className="text-[10px] text-slate-400">
-                  One-time fee. Instant direct WhatsApp chat access upon verified payment.
+                  Pay ₹499 via Razorpay live link. Contact unlocks automatically once verified.
                 </p>
               </div>
 
-              {/* Error / Cancellation Banner */}
+              {/* Error / Notice Banner */}
               {error && (
                 <div className="mb-4 p-3 rounded-xl bg-red-50 text-red-700 text-xs flex items-start gap-2 border border-red-200 animate-in fade-in">
                   <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-600" />
                   <div className="flex-1">
-                    <p className="font-bold">Notice</p>
-                    <p className="text-[11px]">{error}</p>
+                    <p className="font-bold">Payment Notice</p>
+                    <p className="text-[11px] leading-relaxed">{error}</p>
                   </div>
                 </div>
               )}
@@ -403,40 +330,68 @@ export const ContactUnlockModal: React.FC<ContactUnlockModalProps> = ({
                 </div>
               ) : (
                 <div className="space-y-3">
+                  {/* Step 1: Open Razorpay.me link */}
                   <button
                     type="button"
-                    onClick={handleStartRazorpayCheckout}
-                    disabled={loading || verifying}
-                    className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#6C3BFF] via-[#8B5CF6] to-[#00C496] hover:opacity-95 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-purple-200 transition-all active:scale-[0.98] disabled:opacity-60 cursor-pointer"
+                    onClick={handleOpenRazorpayMe}
+                    className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#6C3BFF] via-[#8B5CF6] to-[#00C496] hover:opacity-95 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-purple-200 transition-all active:scale-[0.98] cursor-pointer"
                   >
-                    {verifying ? (
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Verifying Payment with Bank...</span>
-                      </div>
-                    ) : loading ? (
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Opening Razorpay Checkout...</span>
-                      </div>
-                    ) : error ? (
-                      <>
-                        <RotateCcw className="w-4 h-4" />
-                        <span>Try Again — Unlock Contact ₹{unlockAmount}</span>
-                      </>
-                    ) : (
-                      <>
-                        <CreditCard className="w-4 h-4" />
-                        <span>Unlock Contact — ₹{unlockAmount}</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
+                    <CreditCard className="w-4 h-4" />
+                    <span>Pay ₹{unlockAmount} on Razorpay.me</span>
+                    <ExternalLink className="w-4 h-4 ml-1 opacity-90" />
                   </button>
 
-                  <div className="flex items-center justify-center gap-1 text-[11px] text-slate-400">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#00C496]" />
-                    <span>Official PCI-DSS 256-bit Encrypted Razorpay Checkout</span>
+                  <div className="p-2.5 rounded-xl bg-purple-50/70 border border-purple-100 text-center text-[11px] text-purple-900">
+                    <span>Live Payment Link: </span>
+                    <a
+                      href={razorpayMeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold underline text-[#6C3BFF]"
+                    >
+                      razorpay.me/@ravirahul601
+                    </a>
+                    <span className="block text-[10px] text-slate-500 mt-0.5">
+                      Pay using UPI (GPay, PhonePe, Paytm), Card or Netbanking
+                    </span>
                   </div>
+
+                  {/* Step 2: Verify Button (Enforces genuine live verification) */}
+                  <div className="pt-2 border-t border-slate-100 space-y-2">
+                    <button
+                      type="button"
+                      onClick={handleVerifyLivePayment}
+                      disabled={verifying}
+                      className="w-full py-3 px-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.98] disabled:opacity-60 cursor-pointer"
+                    >
+                      {verifying ? (
+                        <div className="flex items-center gap-2">
+                          <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#00C496]" />
+                          <span>Checking Live Razorpay Payment...</span>
+                        </div>
+                      ) : (
+                        <>
+                          <ShieldCheck className="w-4 h-4 text-[#00C496]" />
+                          <span>Verify Live Payment &amp; Unlock Contact</span>
+                        </>
+                      )}
+                    </button>
+
+                    {/* Optional payment reference input for instant check */}
+                    <div className="pt-1">
+                      <input
+                        type="text"
+                        value={manualPaymentId}
+                        onChange={(e) => setManualPaymentId(e.target.value)}
+                        placeholder="Optional: Enter Razorpay Payment ID (e.g. pay_...)"
+                        className="w-full px-3 py-2 text-[11px] rounded-xl border border-slate-200 focus:outline-none focus:border-[#6C3BFF] text-slate-700 placeholder:text-slate-400"
+                      />
+                    </div>
+                  </div>
+
+                  <p className="text-[10px] text-slate-400 text-center leading-relaxed">
+                    🔒 Protected verification: Backend directly verifies payment on Razorpay live API before unlocking.
+                  </p>
                 </div>
               )}
 

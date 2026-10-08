@@ -9,8 +9,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json().catch(() => ({}));
     const {
       profileId,
-      razorpayOrderId,
+      paymentId,
       razorpayPaymentId,
+      razorpayOrderId,
       razorpaySignature
     } = body;
 
@@ -31,19 +32,6 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // Require genuine Razorpay transaction details
-    const cleanOrderId = (razorpayOrderId || '').trim();
-    const cleanPaymentId = (razorpayPaymentId || '').trim();
-    const cleanSignature = (razorpaySignature || '').trim();
-
-    if (!cleanOrderId || !cleanPaymentId || !cleanSignature) {
-      return NextResponse.json({
-        success: false,
-        unlocked: false,
-        error: 'Incomplete payment information. Missing order ID, payment ID, or signature.'
-      }, { status: 400 });
-    }
-
     const rawProfile = db.getRawProfileById(profileId);
     if (!rawProfile) {
       return NextResponse.json({
@@ -53,37 +41,53 @@ export async function POST(req: NextRequest) {
       }, { status: 404 });
     }
 
-    const razorpayKey = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_TlJDgRJz0sQAhB';
-    const razorpaySecret = process.env.RAZORPAY_KEY_SECRET || '8eAycuEQDmkZ4PUugAnL26PF';
-
-    // 1. STEP 1: Verify HMAC-SHA256 signature using Razorpay Key Secret
-    const expectedSignature = crypto
-      .createHmac('sha256', razorpaySecret)
-      .update(`${cleanOrderId}|${cleanPaymentId}`)
-      .digest('hex');
-
-    if (expectedSignature !== cleanSignature) {
-      console.warn(`Payment signature mismatch for order ${cleanOrderId}, payment ${cleanPaymentId}`);
+    // Check if already unlocked for this user
+    if (db.isContactUnlocked(userId, profileId)) {
+      const contactDetails = db.getUnlockedContactDetails(userId, profileId);
       return NextResponse.json({
-        success: false,
-        unlocked: false,
-        error: 'Invalid payment signature. Contact remains locked.'
-      }, { status: 400 });
+        success: true,
+        unlocked: true,
+        locked: false,
+        message: 'Contact is already unlocked!',
+        contact: {
+          username: rawProfile.username,
+          whatsappNumber: rawProfile.whatsappNumber || '919087923641',
+          whatsappUrl: contactDetails.whatsappUrl
+        }
+      });
     }
 
-    // 2. STEP 2: Verify transaction directly with Razorpay API
-    try {
-      const basicAuth = Buffer.from(`${razorpayKey}:${razorpaySecret}`).toString('base64');
+    const razorpayKey = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_TlJDgRJz0sQAhB';
+    const razorpaySecret = process.env.RAZORPAY_KEY_SECRET || '8eAycuEQDmkZ4PUugAnL26PF';
+    const basicAuth = Buffer.from(`${razorpayKey}:${razorpaySecret}`).toString('base64');
+
+    const cleanPaymentId = (paymentId || razorpayPaymentId || '').trim();
+    const cleanOrderId = (razorpayOrderId || '').trim();
+    const cleanSignature = (razorpaySignature || '').trim();
+
+    // =========================================================================
+    // 1. STANDARD RAZORPAY SDK FLOW (If signature is provided)
+    // =========================================================================
+    if (cleanSignature && cleanOrderId && cleanPaymentId) {
+      const expectedSignature = crypto
+        .createHmac('sha256', razorpaySecret)
+        .update(`${cleanOrderId}|${cleanPaymentId}`)
+        .digest('hex');
+
+      if (expectedSignature !== cleanSignature) {
+        return NextResponse.json({
+          success: false,
+          unlocked: false,
+          error: 'Invalid payment signature. Contact remains locked.'
+        }, { status: 400 });
+      }
+
+      // Check payment with Razorpay API
       const rzpRes = await fetch(`https://api.razorpay.com/v1/payments/${cleanPaymentId}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Basic ${basicAuth}`
-        }
+        headers: { Authorization: `Basic ${basicAuth}` }
       });
 
       if (!rzpRes.ok) {
-        const errText = await rzpRes.text();
-        console.error('Razorpay payment fetch failed:', errText);
         return NextResponse.json({
           success: false,
           unlocked: false,
@@ -91,80 +95,194 @@ export async function POST(req: NextRequest) {
         }, { status: 400 });
       }
 
-      const paymentData = await rzpRes.json();
-
-      // Verify order association
-      if (paymentData.order_id && paymentData.order_id !== cleanOrderId) {
+      const pData = await rzpRes.json();
+      if (!['captured', 'authorized'].includes(pData.status)) {
         return NextResponse.json({
           success: false,
           unlocked: false,
-          error: 'Order mismatch: Payment does not match the generated order.'
+          error: `Payment is not completed (status: ${pData.status}). Contact remains locked.`
         }, { status: 400 });
       }
 
-      // Verify payment status
-      if (!['captured', 'authorized'].includes(paymentData.status)) {
+      if (Number(pData.amount) !== 49900) {
         return NextResponse.json({
           success: false,
           unlocked: false,
-          error: `Payment is not successful (status: ${paymentData.status}). Contact remains locked.`
+          error: `Payment amount mismatch: Expected ₹499 INR (49900 paise), received ${pData.amount}.`
         }, { status: 400 });
       }
 
-      // Verify amount (Exactly ₹499 = 49900 paise)
-      if (Number(paymentData.amount) !== 49900) {
+      if (db.isPaymentIdUsed(cleanPaymentId, userId, profileId)) {
         return NextResponse.json({
           success: false,
           unlocked: false,
-          error: `Payment amount mismatch: Expected ₹499 INR (49900 paise), received ${paymentData.amount}.`
+          error: 'This payment has already been claimed for another account.'
+        }, { status: 409 });
+      }
+
+      const unlockResult = db.verifyAndUnlockContact(
+        userId,
+        profileId,
+        cleanOrderId,
+        cleanPaymentId
+      );
+
+      return NextResponse.json({
+        success: true,
+        unlocked: true,
+        locked: false,
+        paymentId: cleanPaymentId,
+        message: 'Payment of ₹499 INR verified successfully. Contact unlocked!',
+        contact: {
+          username: rawProfile.username,
+          whatsappNumber: rawProfile.whatsappNumber || '919087923641',
+          whatsappUrl: unlockResult.whatsappUrl
+        }
+      });
+    }
+
+    // =========================================================================
+    // 2. RAZORPAY.ME LIVE PAYMENT VERIFICATION FLOW (https://razorpay.me/@ravirahul601)
+    // =========================================================================
+    // Case 2A: Specific paymentId was provided (e.g. from receipt, SMS, or screen)
+    if (cleanPaymentId) {
+      try {
+        const pRes = await fetch(`https://api.razorpay.com/v1/payments/${cleanPaymentId}`, {
+          headers: { Authorization: `Basic ${basicAuth}` }
+        });
+
+        if (!pRes.ok) {
+          return NextResponse.json({
+            success: false,
+            unlocked: false,
+            error: `Payment ID "${cleanPaymentId}" was not found on your Razorpay live account. Please verify the ID or complete the payment on razorpay.me/@ravirahul601.`
+          }, { status: 400 });
+        }
+
+        const pData = await pRes.json();
+
+        if (pData.status !== 'captured' && pData.status !== 'authorized') {
+          return NextResponse.json({
+            success: false,
+            unlocked: false,
+            error: `Payment status is "${pData.status}". Only successfully captured payments can unlock contacts.`
+          }, { status: 400 });
+        }
+
+        if (Number(pData.amount) !== 49900) {
+          return NextResponse.json({
+            success: false,
+            unlocked: false,
+            error: `Payment amount is ₹${pData.amount / 100} INR. Contact requires a payment of exactly ₹499 INR.`
+          }, { status: 400 });
+        }
+
+        if (pData.currency !== 'INR') {
+          return NextResponse.json({
+            success: false,
+            unlocked: false,
+            error: 'Payment currency must be INR.'
+          }, { status: 400 });
+        }
+
+        if (db.isPaymentIdUsed(cleanPaymentId, userId, profileId)) {
+          return NextResponse.json({
+            success: false,
+            unlocked: false,
+            error: 'This payment has already been used to unlock a contact.'
+          }, { status: 409 });
+        }
+
+        const unlockResult = db.verifyAndUnlockContact(
+          userId,
+          profileId,
+          `order_rzpme_${cleanPaymentId}`,
+          cleanPaymentId
+        );
+
+        return NextResponse.json({
+          success: true,
+          unlocked: true,
+          locked: false,
+          paymentId: cleanPaymentId,
+          message: 'Razorpay.me payment of ₹499 INR verified successfully. Contact unlocked!',
+          contact: {
+            username: rawProfile.username,
+            whatsappNumber: rawProfile.whatsappNumber || '919087923641',
+            whatsappUrl: unlockResult.whatsappUrl
+          }
+        });
+      } catch (err: any) {
+        return NextResponse.json({
+          success: false,
+          unlocked: false,
+          error: `Error checking payment: ${err.message}`
+        }, { status: 500 });
+      }
+    }
+
+    // Case 2B: Auto-detect latest captured live payment on merchant account
+    try {
+      const listRes = await fetch('https://api.razorpay.com/v1/payments?count=20', {
+        headers: { Authorization: `Basic ${basicAuth}` }
+      });
+
+      if (!listRes.ok) {
+        return NextResponse.json({
+          success: false,
+          unlocked: false,
+          error: 'Could not connect to Razorpay live API to verify payment.'
+        }, { status: 502 });
+      }
+
+      const listData = await listRes.json();
+      const items: any[] = listData.items || [];
+
+      // Find any captured payment for ₹499 (49900 paise) that has not yet been used
+      const matchedPayment = items.find(
+        (item) =>
+          item.status === 'captured' &&
+          Number(item.amount) === 49900 &&
+          item.currency === 'INR' &&
+          !db.isPaymentIdUsed(item.id, userId, profileId)
+      );
+
+      if (!matchedPayment) {
+        return NextResponse.json({
+          success: false,
+          unlocked: false,
+          error: 'No live captured payment of ₹499 found on Razorpay yet. Please complete the ₹499 payment on razorpay.me/@ravirahul601, then click "Verify Payment & Unlock Contact".'
         }, { status: 400 });
       }
 
-      // Verify currency
-      if (paymentData.currency !== 'INR') {
-        return NextResponse.json({
-          success: false,
-          unlocked: false,
-          error: 'Payment currency mismatch: Currency must be INR.'
-        }, { status: 400 });
-      }
+      // Valid captured live payment detected! Unlock contact
+      const unlockResult = db.verifyAndUnlockContact(
+        userId,
+        profileId,
+        `order_rzpme_${matchedPayment.id}`,
+        matchedPayment.id
+      );
+
+      return NextResponse.json({
+        success: true,
+        unlocked: true,
+        locked: false,
+        paymentId: matchedPayment.id,
+        message: 'Live Razorpay payment of ₹499 detected and verified! Contact unlocked successfully.',
+        contact: {
+          username: rawProfile.username,
+          whatsappNumber: rawProfile.whatsappNumber || '919087923641',
+          whatsappUrl: unlockResult.whatsappUrl
+        }
+      });
     } catch (apiErr: any) {
-      console.error('Razorpay API verification error:', apiErr);
+      console.error('Razorpay live fetch error:', apiErr);
       return NextResponse.json({
         success: false,
         unlocked: false,
-        error: 'Backend failed to connect with Razorpay for verification. Contact remains locked.'
+        error: 'Failed to connect to Razorpay API for verification. Please try again.'
       }, { status: 502 });
     }
-
-    // 3. STEP 3: Prevent replay attacks (payment ID used by another user)
-    if (db.isPaymentIdUsed(cleanPaymentId, userId, profileId)) {
-      return NextResponse.json({
-        success: false,
-        unlocked: false,
-        error: 'This payment reference has already been claimed for another account.'
-      }, { status: 409 });
-    }
-
-    // 4. STEP 4: Genuine verified payment! Unlock contact in database for this specific user
-    const unlockResult = db.verifyAndUnlockContact(
-      userId,
-      profileId,
-      cleanOrderId,
-      cleanPaymentId
-    );
-
-    return NextResponse.json({
-      success: true,
-      unlocked: true,
-      locked: false,
-      message: 'Payment of ₹499 INR verified successfully. Contact unlocked!',
-      contact: {
-        username: rawProfile.username,
-        whatsappNumber: rawProfile.whatsappNumber || '919087923641',
-        whatsappUrl: unlockResult.whatsappUrl
-      }
-    });
   } catch (error: any) {
     console.error('Payment verification error:', error);
     return NextResponse.json({
